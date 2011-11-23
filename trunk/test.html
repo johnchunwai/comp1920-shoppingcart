@@ -1,0 +1,121 @@
+<html>
+<head>
+<script type="text/javascript" src="./jquery/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="./jquery/common.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+	
+		$("#getCartContent2").click(function() {
+			$.getJSON("./cart.php?method=getCartContent", function(resp) {
+				var content = '<table><tr><td>ID</td><td>Name</td><td>Quantity</td></tr>';
+				$.each(resp, function(itemId, itemDetails) {
+					content += '<tr><td>' + itemId + '</td>';
+					$.each(itemDetails, function(key, val) {
+						content += '<td>' + val + '</td>';
+					});
+					content += '</tr>';
+				});
+				content += '</table>';
+				$("#cartContent2").html(content);
+			});
+		});
+	});
+</script>
+<!-- <script type="text/javascript">
+		$.each(window.products, function(id, details) {
+			catalog += '<tr>';
+			catalog += '<td><select name="' + id + '_qty">';
+			var i;
+			for (i = 0; i < 10; i++) {
+				catalog += 'option value="' + i + '">' + i + '</option>';
+			}
+			catalog += '</select></td>';
+			catalog += '</tr>';
+		});
+				catalog += '<td><img src="' + details.prod_image + '"/></td>';
+			catalog += '<td>' + details.prod_name + '</td>';
+			catalog += '<td>' + details.prod_desc + '</td>';
+
+			catalog += '<td><input type="button" id="' + i + '"_button value="Add to Cart"/></td>';
+
+
+				$.each(resp, function(key, val) {
+				if (key == "login" && val == true) {
+				}
+			});
+
+		$.ajaxSetup({
+			 cache: false,
+			 error: function(x, e) {
+			 	if (x.status == 0) {
+			 		alert('You are offline! Please check you network.');
+			 	}
+			 	else if (x.status == 404) {
+			 		alert('Requested URL not found.');
+			 	}
+			 	else if (x.status == 500) {
+			 		alert('Internel server error.');
+			 	}
+			 	else if (e == 'parseerror') {
+			 		alert('Error parsing JSON request.');
+			 	}
+			 	else if (e == 'timeout') {
+			 		alert('Request timed out.');
+			 	}
+			 	else {
+			 		alert('Unknown error: ' + x.responseText);
+			 	}
+			 }
+		});
+	// Getting the XML HTTP Object for Ajax calls.
+	function getHttpObject() {
+		if (window.XMLHttpRequest) {
+			// IE7+, Firefox, Chrome, Opera, Safari.
+			return new XMLHttpRequest();
+		}
+		else {
+			// IE6, IE5.
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	}
+	
+	httpObject = getHttpObject();
+	
+	// Function to get the cart content.
+	function getCartContent() {
+		if (httpObject != null) {
+			httpObject.open("GET", "./cart.php?method=getCartContent", true);
+			httpObject.onreadystatechange = handleGetCartContentResponse;
+			httpObject.send();
+		}
+	}
+	
+	// Function to handle getCartContentResponse.
+	function handleGetCartContentResponse() {
+		if (httpObject.readyState == 4) {
+			if (httpObject.status == 200) {
+				cartContent = eval("(" + httpObject.responseText + ")");
+				var innerText = '';
+				for (itemId in cartContent) {
+					innerText += "Product ID:" + itemId;
+					item = cartContent[itemId];
+					innerText = innerText + " Item Name:" + item[0];
+					innerText += " Quantity:" + item[1];
+					innerText += '<br/>';
+				}
+				document.getElementById("cartContent").innerHTML = innerText;
+			}
+			else {
+				alert("Error during AJAX call. Please try again.");
+			}
+		}
+	}
+</script> -->
+</head>
+
+<h1>Test</h1>
+<input type="submit" value="Get Cart Content" onclick="getCartContent();" />
+<div id="cartContent"></div>
+<input type="submit" id="getCartContent2" value="Get Cart Content" />
+<div id="cartContent2"></div>
+</html>

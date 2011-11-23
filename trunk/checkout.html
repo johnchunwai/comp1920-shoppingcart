@@ -1,0 +1,33 @@
+<html>
+<head>
+<script type="text/javascript" src="./jquery/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="./jquery/common.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		ajaxSetup();
+		
+		// Check whether the user already logged in and redirect to login page if not.
+		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
+			if (!resp.login) {
+				window.location = "login.html";
+			}
+			else {
+				$(".user_id").html(resp.user_id);
+			}
+		});
+		
+		// Show cart content.
+		$.getJSON("./cart.php?method=getCartContent", function(resp) {
+			
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>Checkout</h1>
+	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
+	<h2>Review Your Order</h2>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html>
+<head>
+<script type="text/javascript" src="./jquery/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="./jquery/common.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		ajaxSetup();
+		
+		// Check whether the user already logged in and redirect to login page if not.
+		$.getJSON("./login.php?method=logout", function() {
+			window.location = "login.html";
+		});
+		
+	});
+</script>
+</head>
+</html>
