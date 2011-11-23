@@ -24,18 +24,21 @@ function ajaxSetup() {
 		 }
 	});
 }
-	
-// Retrieve the product lists. Must do this synchronously to make sure products is set.
-// This is okay since it is only called once (guarded by the window.products global).
-function updateProductCatalogue() {
-	if (!window.products) {
-		$.ajax({
-			url: './storefront.php?method=getProducts',
-			async: false,
-			dataType: 'json',
-			success: function(resp) {
-				window.products = resp;
-			}
-		});
+
+// Helper function to create a HTML select with the specified id,
+// starting at startIndex till endIndex, selected index is optional.
+function createSelectForQuantity(id, startIndex, endIndex, selectedIndex) {
+	if (selectedIndex == undefined) {
+		selectedIndex = startIndex - 1;
 	}
+	content = '<select id="' + id + '">';
+	for (i = startIndex; i <= endIndex; i++) {
+		content += '<option value="' + i + '"';
+		if (i == selectedIndex) {
+			content += ' selected="selected"';
+		}
+		content	+= '>' + i + '</option>';
+	}
+	content += '</select>';
+	return content;
 }
