@@ -37,14 +37,14 @@
 			catalog += '</tr>';
 		});
 		catalog += '</table>';
-		$("#products").html(catalog);
+		$("#product_div").html(catalog);
 		
 		// Add items to cart when user clicks the AddToCart button.
-		$("#products input.button").click(function() {
+		$("#product_div input.button").click(function() {
 			$.getJSON("./cart.php?method=addToCart",
 			{
 				prod_id: this.id,
-				count: $("#products select#" + this.id + "_qty").val()
+				count: $("#product_div select#" + this.id + "_qty").val()
 			},
 			function(resp) {
 				if (resp) {
@@ -62,7 +62,7 @@
 	<h1>Store</h1>
 	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
 	<h2>Products</h2>
-	<div id="products"></div>
+	<div id="product_div"></div>
 	<div id="msg"></div>
 	<form action="./checkout.html">
 		<input type="submit" value="Proceed to Checkout"/>
