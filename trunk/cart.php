@@ -37,10 +37,10 @@
 	
 	/*
 	 * Purchase all items in the cart.
-	 * Return succeed/failure, error message pair.
+	 * Return succeed/failure, error message pair. Eg. {"succeed":true} or {"succeed":false "msg":"Failed to purchase"};
 	 */
 	function makePurchase() {
-		return json_encode(array(true, ""));
+		return json_encode(array("succeed" => true));
 	}
 	
 	
