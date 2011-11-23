@@ -8,17 +8,12 @@
 		ajaxSetup();
 		
 		// Check whether the user already logged in and redirect to login page if not.
-		$.ajax({
-			url: "./login.php?method=getLoginInfo",
-			async: false,
-			dataType: 'json',
-			success: function(resp) {
-				if (!resp.login) {
-					window.location = "login.html";
-				}
-				else {
-					$(".user_id").html(resp.user_id);
-				}
+		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
+			if (!resp.login) {
+				window.location = "login.html";
+			}
+			else {
+				$(".user_id").html(resp.user_id);
 			}
 		});
 		
