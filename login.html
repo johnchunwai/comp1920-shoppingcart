@@ -1,0 +1,48 @@
+<html>
+<head>
+<script type="text/javascript" src="./jquery/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="./jquery/common.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		ajaxSetup();
+		
+		// Check whether the user already logged in and redirect to shopping page if so.
+		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
+			if (resp.login) {
+				window.location = "storefront.html";
+			}
+		});
+		
+		// Perform user login. Redirect to storefront if succeed.
+		$("#login").click(function(e) {
+			e.preventDefault(); // Cancel default submit behaviour.
+			
+			$.getJSON("./login.php?method=login",
+			{
+				user_id: $("#user_name").val(),
+				password: $("#password").val()
+			},
+			function(resp) {
+				if (resp) {
+					window.location = "storefront.html";
+				}
+				else {
+					$("#error_msg").html("Login Failed");
+				}
+			});
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<h1>Login</h1>
+	<form>
+		<div id="error_msg"></div><br/>
+		Name: <input type="text" id="user_name" /><br/>
+		Password: <input type="password" id="password" /><br/>
+		<input type="submit" id="login" />
+	</form>
+</body>
+</html>
