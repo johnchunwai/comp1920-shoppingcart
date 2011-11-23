@@ -7,19 +7,19 @@
 	
 	/*
 	 * Adds a certain quantity of an item to the cart.
-	 * Return succeed/failure, error message pair. Eg. {true} or {false,"cart add error"};
+	 * Return succeed/failure, error message pair. Eg. {"succeed":true} or {"succeed":false,"msg":"cart add error"};
 	 */
 	function addToCart($prodId, $count) {
-		$result = array(true);
+		$result = array("succeed" => true);
 		return json_encode($result);
 	}
 	
 	/*
 	 * Update the quantity of a certain item in the cart.  
-	 * Return succeed/failure, error message pair.
+	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
 	function updateCartItemCount($prodId, $count) {
-		return json_encode(array(true, ""));
+		return json_encode(array("succeed" => false, "qty" => 34));
 	}
 	
 	/*
@@ -27,7 +27,11 @@
 	 * Return a list of product ID, names and quantities.
 	 */
 	function getCartContent() {
-		$cartContent = array(1 => array("prod_name" => "item1", "prod_qty" => 3), 3 => array("prod_name" => "item3", "prod_qty" => 1));
+		$cartContent = array(
+			1 => array("prod_name" => "item1", "prod_image" => "./data/img/prod_01.jpg", "qty" => 67),
+			2 => array("prod_name" => "item2", "prod_image" => "./data/img/prod_02.jpg", "qty" => 13),
+			3 => array("prod_name" => "item3", "prod_image" => "./data/img/prod_03.jpg", "qty" => 23)
+		);
 		return json_encode($cartContent);
 	}
 	

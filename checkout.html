@@ -19,7 +19,37 @@
 		
 		// Show cart content.
 		$.getJSON("./cart.php?method=getCartContent", function(resp) {
-			
+			// Present the cart content as a table.
+			content = '<table>';
+			$.each(resp, function(id, details) {
+				content += '<tr>';
+				content += '<td><img src="' + details.prod_image + '"/></td>';
+				content += '<td>' + details.prod_name + '</td>';
+				content += '<td>Quantity:' + createSelectForQuantity(id + '_qty', 1, 100, details.qty) + '</td>';
+				content += '<td><input type="button" class="button" id="' + id + '" value="Update Quantity"/></td>';
+				content += '</tr>';
+			});
+			content += '</table>';
+			$("#cart_content_div").html(content);
+
+			// Hook up add items to cart action when user clicks the buttons.
+			$("#cart_content_div input.button").click(function() {
+				var prodId = this.id;
+				$.getJSON("./cart.php?method=updateCartItemCount",
+				{
+					prod_id: prodId,
+					count: $("#cart_content_div select#" + prodId + "_qty").val()
+				},
+				function(resp) {
+					if (resp.succeed) {
+						$("#msg").html('Item quantity updated.');
+					}
+					else {
+						$("#msg").html('Failed update item quanity.');
+						$("#cart_content_div select#" + prodId + "_qty").val(resp.qty);
+					}
+				});
+			});
 		});
 	});
 </script>
@@ -28,6 +58,11 @@
 	<h1>Checkout</h1>
 	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
 	<h2>Review Your Order</h2>
-
+	<div id="cart_content_div"></div>
+	To delete an item, change its quantity to 0, then click Update Quantity.
+	<div id="msg"></div>
+	<form action="./purchase.html">
+		<input type="submit" value="Continue"/>
+	</form>
 </body>
 </html>
