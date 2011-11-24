@@ -1,21 +1,27 @@
 <html>
 <head>
-<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="./scripts/common.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
+	<title>Checkout</title>
+</head>
+<body>
+	<h1>Checkout</h1>
+	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
+	<h2>Review Your Order</h2>
+	<div id="cart_content_div"></div>
+	To delete an item, change its quantity to 0, then click Update Quantity.
+	<div id="msg"></div>
+	<form action="./purchase.html">
+		<input type="submit" value="Continue"/>
+	</form>
+
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
 		
 		ajaxSetup();
-		
-		// Check whether the user already logged in and redirect to login page if not.
-		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
-			if (!resp.login) {
-				window.location = "login.html";
-			}
-			else {
-				$(".user_id").html(resp.user_id);
-			}
-		});
+		checkLogin();
 		
 		// Show cart content.
 		$.getJSON("./cart.php?method=getCartContent", function(resp) {
@@ -51,18 +57,7 @@
 				});
 			});
 		});
-	});
-</script>
-</head>
-<body>
-	<h1>Checkout</h1>
-	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
-	<h2>Review Your Order</h2>
-	<div id="cart_content_div"></div>
-	To delete an item, change its quantity to 0, then click Update Quantity.
-	<div id="msg"></div>
-	<form action="./purchase.html">
-		<input type="submit" value="Continue"/>
-	</form>
+
+	</script>
 </body>
 </html>

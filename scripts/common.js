@@ -25,6 +25,23 @@ function ajaxSetup() {
 	});
 }
 
+// Check if the user has logged in. If so, set the user_id class span to the userId.
+// If not, redirect user back to login page.
+function checkLogin() {
+	// Check whether the user already logged in and redirect to login page if not.
+	$.getJSON("./login.php?method=getLoginInfo", function(resp) {
+		if (!resp.login) {
+			$("body").html("User needs to login first. Redirecting to login page in 2 seconds.");
+			setTimeout(function() {
+				window.location = "login.html";
+			}, 2000);
+		}
+		else {
+			$(".user_id").html(resp.user_id);
+		}
+	});
+}
+
 // Helper function to create a HTML select with the specified id,
 // starting at startIndex till endIndex, selected index is optional.
 function createSelectForQuantity(id, startIndex, endIndex, selectedIndex) {

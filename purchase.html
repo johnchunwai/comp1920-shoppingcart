@@ -1,21 +1,26 @@
 <html>
 <head>
-<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="./scripts/common.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
+	<title>Purchase</title>
+</head>
+<body>
+	<h1>Purchase</h1>
+	<p><span class="user_id"></span>, <span id="purchase_result"></span>
+	<form action="storefront.html">
+		<input type="submit" value="Continue Shopping" />
+	</form>
+	<form action="Logout.html">
+		<input type="submit" value="Logout" />
+	</form>
+	
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
 		
 		ajaxSetup();
-		
-		// Check whether the user already logged in and redirect to login page if not.
-		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
-			if (!resp.login) {
-				window.location = "login.html";
-			}
-			else {
-				$(".user_id").html(resp.user_id);
-			}
-		});
+		checkLogin();
 		
 		// Make the purchase as the page loads.
 		$.getJSON("./cart.php?method=makePurchase", function(resp) {
@@ -27,17 +32,6 @@
 			}
 		});
 		
-	});
-</script>
-</head>
-<body>
-	<h1>Purchase</h1>
-	<p><span class="user_id"></span>, <span id="purchase_result"></span>
-	<form action="storefront.html">
-		<input type="submit" value="Continue Shopping" />
-	</form>
-	<form action="Logout.html">
-		<input type="submit" value="Logout" />
-	</form>
+	</script>
 </body>
 </html>
