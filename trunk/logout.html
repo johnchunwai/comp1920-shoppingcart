@@ -1,18 +1,22 @@
 <html>
 <head>
-<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="./scripts/common.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		
-		ajaxSetup();
-		
-		// Check whether the user already logged in and redirect to login page if not.
-		$.getJSON("./login.php?method=logout", function() {
-			window.location = "login.html";
-		});
-		
-	});
-</script>
+	<title>Logout</title>
 </head>
+<body>
+	Logging out. Redirect to login page in 2 seconds.
+	
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		// Logout and redirect to login page.
+		$.getJSON("./login.php?method=logout", function() {
+			setTimeout(function() {
+				window.location = "login.html";
+			}, 2000);
+		});
+	</script>
+</body>
 </html>

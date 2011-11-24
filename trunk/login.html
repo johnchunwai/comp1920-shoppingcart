@@ -1,9 +1,22 @@
 <html>
 <head>
-<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="./scripts/common.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
+	<title>Login</title>
+</head>
+<body>
+	<h1>Login</h1>
+	<form>
+		<div id="error_msg"></div><br/>
+		Name: <input type="text" id="user_name" /><br/>
+		Password: <input type="password" id="password" /><br/>
+		<input type="submit" id="login" />
+	</form>
+
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
 		
 		ajaxSetup();
 		
@@ -33,16 +46,6 @@
 			});
 		});
 		
-	});
-</script>
-</head>
-<body>
-	<h1>Login</h1>
-	<form>
-		<div id="error_msg"></div><br/>
-		Name: <input type="text" id="user_name" /><br/>
-		Password: <input type="password" id="password" /><br/>
-		<input type="submit" id="login" />
-	</form>
+	</script>
 </body>
 </html>
