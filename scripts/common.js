@@ -37,7 +37,9 @@ function checkLogin() {
 			}, 2000);
 		}
 		else {
-			$(".user_id").html(resp.user_id);
+			$.getJSON("./customerinfo.php?method=getUserInfo", function(resp) {
+				$(".user_id").html(resp.name);
+			});
 		}
 	});
 }

@@ -46,13 +46,13 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'getUserInfo') {
-		echo getUserInfo($_SESSION['userId']);
+		echo getUserInfo($_SESSION['user_id']);
 	}
 	else if ($method == 'getUserInventory') {
-		echo getUserInventory($_SESSION['userId']);
+		echo getUserInventory($_SESSION['user_id']);
 	}
 	else if ($method == 'getUserOrderHistory') {
-		echo getUserOrderHistory($_SESSION['userId']);
+		echo getUserOrderHistory($_SESSION['user_id']);
 	}
 	else if ($method == 'getOrderDetails') {
 		echo getOrderDetails($_REQUEST['orderId']);
