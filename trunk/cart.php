@@ -81,6 +81,7 @@
 		// Grab the list of items from the cart and add them to user inventory.
 		// Then, clear the cart.
 		$succeeded = true;
+		$msg = "";
 		if (USE_DB) {
 			foreach ($_SESSION['cart'] as $prodId => $qty) {
 				// Try insert first, then try update.
@@ -93,7 +94,8 @@
 					// die($q);
 					// mysql_query($q) or die(mysql_error());
 					if (!mysql_query($q)) {
-						return json_encode(array("succeed" => false, mysql_error()));
+						$succeeded = false;
+						$msg = mysql_error();
 					}
 				}
 			}
@@ -103,7 +105,7 @@
 			$_SESSION['cart'] = array();
 		}
 		
-		return array("succeed" => true);
+		return array("succeed" => $succeeded, "msg" => $msg);
 	}
 	
 	
