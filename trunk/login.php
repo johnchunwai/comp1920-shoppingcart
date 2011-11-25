@@ -28,8 +28,14 @@
 	 * Returns the user login info. eg. { "login":true, "user_id":"johnchan" } or { "login":false, "user_id":""}.
 	 */
 	function getLoginInfo() {
-		$result['login'] = $_SESSION['login'];
-		$result['user_id'] = $_SESSION['user_id'];
+		if (isset($_SESSION['login']) && isset($_SESSION['user_id'])) {
+			$result['login'] = $_SESSION['login'];
+			$result['user_id'] = $_SESSION['user_id'];
+		}
+		else {
+			$result['login'] = false;
+			$result['user_id'] = null;
+		}
 		return $result;
 	}
 	
