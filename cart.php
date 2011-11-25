@@ -22,8 +22,7 @@
 	 */
 	function addToCart($prodId, $count) {
 		$succeeded = true;
-		$cart = $_SESSION['cart'];
-		if (!isset($_SESSION['cart'])) {
+		if (!isset($_SESSION['cart'][$prodId])) {
 			// If the product is not added to cart, add it.
 			$_SESSION['cart'][$prodId] = $count;
 		}
@@ -116,7 +115,7 @@
 		echo json_encode(addToCart($_REQUEST['prod_id'], $_REQUEST['count']));
 	}
 	else if ($method == 'updateCartItemCount') {
-		echo json_encode(updateCartItemCount($_REQUEST['prodId'], $_REQUEST['count']));
+		echo json_encode(updateCartItemCount($_REQUEST['prod_id'], $_REQUEST['count']));
 	}
 	else if ($method == 'getCartContent') {
 		echo json_encode(getCartContent());
