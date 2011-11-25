@@ -4,8 +4,11 @@
 	 * File name: login.php
 	 * File description: Handles login and logout of users.
 	 */
+	require_once('common.php');
 	
 	session_start();
+	
+	initDb();
 	
 	/*
 	 * Authenticates user. Returns succeed/failure, error_msg. eg. { true } or { false }.
@@ -16,6 +19,7 @@
 			$result = true;
 			$_SESSION['login'] = true;
 			$_SESSION['user_id'] = $userId;
+			$_SESSION['cus_id'] = 1;
 		}
 		return json_encode($result);
 	}

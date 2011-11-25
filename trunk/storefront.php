@@ -4,7 +4,11 @@
 	 * File name: storefront.php
 	 * File description: Store front to show available merchandise.
 	 */
+	require_once('common.php');
 	
+	session_start();
+	validateSession();
+	 	
 	/*
 	 * Function to list products available for purchase.
 	 * Return a list of product IDs mapping to product details.

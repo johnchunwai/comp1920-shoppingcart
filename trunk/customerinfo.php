@@ -4,6 +4,10 @@
 	 * File name: customerinfo.php
 	 * File description: Displays customer information, inventory, and purchase history.
 	 */
+	require_once('common.php');
+	
+	session_start();
+	validateSession();
 	
 	/*
 	 * Get detail information about a user.

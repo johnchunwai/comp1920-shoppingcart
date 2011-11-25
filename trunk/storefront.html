@@ -51,7 +51,7 @@
 				},
 				function(resp) {
 					if (resp.succeed) {
-						$("#msg").html('Item added to cart.');
+						$("#msg").html('Item added to cart: ' + resp.msg);
 					}
 					else {
 						$("#msg").html('Failed to add item to cart: ' + resp.msg);
