@@ -47,7 +47,7 @@
 		else {
 			$result = array('succeed' => false, 'msg' => 'Reached the limited of ' . MAX_COUNT_PER_ITEM_IN_CART . ' items per product in cart.');
 		}
-		return json_encode($result);
+		return $result;
 	}
 	
 	/*
@@ -55,7 +55,7 @@
 	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
 	function updateCartItemCount($prodId, $count) {
-		return json_encode(array("succeed" => false, "qty" => 34));
+		return array("succeed" => false, "qty" => 34);
 	}
 	
 	/*
@@ -71,7 +71,7 @@
 		// 1) get the cart from session 2) call getProducts in storefront
 		// 3) loop through each item in cart, for each prodId, look for the corresponding prod_name and prod_image
 		// from the return value from getProducts and put them into an array for return. 
-		return json_encode($cartContent);
+		return $cartContent;
 	}
 	
 	/*
@@ -104,7 +104,7 @@
 			$_SESSION['cart'] = array();
 		}
 		
-		return json_encode(array("succeed" => true));
+		return array("succeed" => true);
 	}
 	
 	
@@ -113,15 +113,15 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'addToCart') {
-		echo addToCart($_REQUEST['prod_id'], $_REQUEST['count']);
+		echo json_encode(addToCart($_REQUEST['prod_id'], $_REQUEST['count']));
 	}
 	else if ($method == 'updateCartItemCount') {
-		echo updateCartItemCount($_REQUEST['prodId'], $_REQUEST['count']);
+		echo json_encode(updateCartItemCount($_REQUEST['prodId'], $_REQUEST['count']));
 	}
 	else if ($method == 'getCartContent') {
-		echo getCartContent();
+		echo json_encode(getCartContent());
 	}
 	else if ($method == 'makePurchase') {
-		echo makePurchase();
+		echo json_encode(makePurchase());
 	}
 ?>	

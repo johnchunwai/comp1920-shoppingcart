@@ -21,7 +21,7 @@
 			$_SESSION['user_id'] = $userId;
 			$_SESSION['cus_id'] = 1;
 		}
-		return json_encode($result);
+		return $result;
 	}
 	
 	/*
@@ -30,7 +30,7 @@
 	function getLoginInfo() {
 		$result['login'] = $_SESSION['login'];
 		$result['user_id'] = $_SESSION['user_id'];
-		return json_encode($result);
+		return $result;
 	}
 	
 	/*
@@ -59,12 +59,12 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'login') {
-		echo login($_REQUEST['user_id'], $_REQUEST['password']);
+		echo json_encode(login($_REQUEST['user_id'], $_REQUEST['password']));
 	}
 	else if ($method == 'getLoginInfo') {
-		echo getLoginInfo();
+		echo json_encode(getLoginInfo());
 	}
 	else if ($method == 'logout') {
-		echo logout();
+		logout();
 	}
 ?>

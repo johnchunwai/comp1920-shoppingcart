@@ -19,7 +19,7 @@
 			2 => array("prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./data/img/prod_02.jpg"),
 			3 => array("prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./data/img/prod_03.jpg")
 		);
-		return json_encode($products);
+		return $products;
 	}
 	
 	/*
@@ -27,6 +27,6 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'getProducts') {
-		echo getProducts();
+		echo json_encode(getProducts());
 	}
 ?>	

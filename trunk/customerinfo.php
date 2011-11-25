@@ -15,7 +15,7 @@
 	 */
 	function getUserInfo($userId) {
 		$userInfo = array("name" => "John Chan");
-		return json_encode($userInfo);
+		return $userInfo;
 	}
 	
 	/*
@@ -24,7 +24,7 @@
 	 */
 	function getUserInventory($userId) {
 		$inventory = array("item1" => 5, "item2" => 100, "item5" => 1000);
-		return json_encode($inventory);
+		return $inventory;
 	}
 	
 	/*
@@ -33,7 +33,7 @@
 	 */
 	function getUserOrderHistory($userId) {
 		$orderHistory = array("Jan 13, 2011 01:15 AM" => 1, "Jan 02, 2011 11:15 PM" => 2);
-		return json_encode($orderHistory);
+		return $orderHistory;
 	}
 	
 	/*
@@ -42,7 +42,7 @@
 	 */
 	function getOrderDetails($orderId) {
 		$order = array("item1" => 1, "item2" => 10);
-		return json_encode($order);
+		return $order;
 	}
 	
 	/*
@@ -50,15 +50,15 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'getUserInfo') {
-		echo getUserInfo($_SESSION['user_id']);
+		echo json_encode(getUserInfo($_SESSION['user_id']));
 	}
 	else if ($method == 'getUserInventory') {
-		echo getUserInventory($_SESSION['user_id']);
+		echo json_encode(getUserInventory($_SESSION['user_id']));
 	}
 	else if ($method == 'getUserOrderHistory') {
-		echo getUserOrderHistory($_SESSION['user_id']);
+		echo json_encode(getUserOrderHistory($_SESSION['user_id']));
 	}
 	else if ($method == 'getOrderDetails') {
-		echo getOrderDetails($_REQUEST['orderId']);
+		echo json_encode(getOrderDetails($_REQUEST['orderId']));
 	}
 ?>	
