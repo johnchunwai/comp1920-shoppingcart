@@ -1,19 +1,26 @@
 /*Author: Bill Yu, Chun Wai Chan, Patrick Kowalski, Sahra Dilmaghanyan, Sami Jashromi
- Date: Nov 24, 2011
+ Date: Nov 26, 2011
  File name: login-box.css */
  
 
 #login-box {
-	width:333px;
-	height: 332px;
-	padding: 58px 76px 0 76px;
+	width:320px;
+	height: 280px;
+	padding: 50px 70px 0 70px;
 	color: #ebebeb;
-	font: 12px Arial, Helvetica, sans-serif;
+	font: 14px Arial, Helvetica, sans-serif;
 	background: url(images/login-box-backg.png) no-repeat left top;
+	margin: auto;  
+	
 }
 
 #login-box img {
 	border:none;
+}
+h1{
+	margin: 2px;
+	padding:0px 5px 10px 1px;
+	border-bottom:1px solid #ffffff;
 }
 
 #login-box-name {
@@ -21,16 +28,17 @@
 	display:inline;
 	width:80px;
 	text-align: right;
-	padding: 14px 10px 0 0;
+	padding: 20px 10px 0 0;
 	margin:0 0 7px 0;
+	font-weight:bold;
+	font-size:15px
 }
 
 #login-box-field {
 	float: left;  
 	display:inline;
 	width:230px;
-	margin:0;
-	margin:0 0 7px 0;
+	margin:10px 0 7px 0;
 }
 .form-login  {
 	width: 205px;
