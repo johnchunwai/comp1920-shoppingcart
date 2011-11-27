@@ -26,7 +26,7 @@
 	
 	// Sanity checks for logged in users.
 	function validateSession() {
-		isset($_SESSION['user_id']) or die("Failed to get user_id");
+		isset($_SESSION['loginname']) or die("Failed to get loginname");
 		isset($_SESSION['cus_id']) or die("Failed to get cus_id");
 	}
 ?>

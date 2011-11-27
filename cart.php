@@ -63,9 +63,9 @@
 	 */
 	function getCartContent() {
 		$cartContent = array(
-			1 => array("prod_name" => "item1", "prod_image" => "./data/img/prod_01.jpg", "qty" => 67),
-			2 => array("prod_name" => "item2", "prod_image" => "./data/img/prod_02.jpg", "qty" => 13),
-			3 => array("prod_name" => "item3", "prod_image" => "./data/img/prod_03.jpg", "qty" => 23)
+			array("prod_id" => 1, "prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
+			array("prod_id" => 2, "prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
+			array("prod_id" => 3, "prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
 		);
 		// 1) get the cart from session 2) call getProducts in storefront
 		// 3) loop through each item in cart, for each prodId, look for the corresponding prod_name and prod_image
@@ -77,7 +77,7 @@
 	 * Purchase all items in the cart.
 	 * Return succeed/failure, error message pair. Eg. {"succeed":true} or {"succeed":false "msg":"Failed to purchase"};
 	 */
-	function makePurchase() {
+	function makePurchase($cusId) {
 		// Grab the list of items from the cart and add them to user inventory.
 		// Then, clear the cart.
 		$succeeded = true;
@@ -86,7 +86,7 @@
 		$sqlErrors = "";
 		$msg = "";
 		if (USE_DB) {
-			$cusId = mysql_real_escape_string($_SESSION['cus_id']);
+			$cusId = mysql_real_escape_string($cusId);
 			foreach ($_SESSION['cart'] as $prodId => $qty) {
 				// Try insert first, then try update.
 				$productPurchased = true;
@@ -140,6 +140,6 @@
 		echo json_encode(getCartContent());
 	}
 	else if ($method == 'makePurchase') {
-		echo json_encode(makePurchase());
+		echo json_encode(makePurchase($_SESSION['cus_id']));
 	}
 ?>	

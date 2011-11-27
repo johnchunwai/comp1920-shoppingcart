@@ -8,7 +8,7 @@
 		<h1>Login</h1>
 		<form>
 			<div id="error_msg"></div><br/>
-			<div id="login-box-name" >Name: </div><div id="login-box-field"><input type="text" class="form-login" id="user_name" /></div>
+			<div id="login-box-name" >Name: </div><div id="login-box-field"><input type="text" class="form-login" id="loginname" /></div>
 			<div id="login-box-name">Password: </div><div id="login-box-field"><input type="password" class="form-login" id="password" /></div>
 			<input type="image" src="./css/images/login-btn.png" id="login" width="103" height="42" style="margin-left:90px;margin-top:10px; " />
 		</form>
@@ -26,7 +26,7 @@
 		// Check whether the user already logged in and redirect to shopping page if so.
 		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
 			if (resp.login) {
-				$("body").html("Welcome back, " + resp.user_id + ". Redirecting you to the storefront in 2 seconds.");
+				$("body").html("Welcome back, " + resp.cus_name + ". Redirecting you to the storefront in 2 seconds.");
 				setTimeout(function() {
 					window.location = "storefront.html";
 				}, 2000);
@@ -39,7 +39,7 @@
 			
 			$.getJSON("./login.php?method=login",
 			{
-				user_id: $("#user_name").val(),
+				loginname: $("#loginname").val(),
 				password: $("#password").val()
 			},
 			function(resp) {

@@ -15,9 +15,9 @@
 	 */
 	function getProducts() {
 		$products = array(
-			1 => array("prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./data/img/prod_01.jpg"),
-			2 => array("prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./data/img/prod_02.jpg"),
-			3 => array("prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./data/img/prod_03.jpg")
+			array("prod_id" => 1, "prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./img/radioactive_blue.jpg"),
+			array("prod_id" => 2, "prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./img/dry_cow_dung.jpg"),
+			array("prod_id" => 3, "prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./img/bill.jpg")
 		);
 		return $products;
 	}
