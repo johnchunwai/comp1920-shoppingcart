@@ -81,28 +81,45 @@
 		// Grab the list of items from the cart and add them to user inventory.
 		// Then, clear the cart.
 		$succeeded = true;
+		$purchasedProdIds = "";
+		$failedProdIds = "";
+		$sqlErrors = "";
 		$msg = "";
 		if (USE_DB) {
+			$cusId = mysql_real_escape_string($_SESSION['cus_id']);
 			foreach ($_SESSION['cart'] as $prodId => $qty) {
 				// Try insert first, then try update.
-				$q = "INSERT INTO tbl_cus_inventory (prod_id, cus_id, qty) VALUES ('$prodId', '$_SESSION[cus_id]', '$qty')";
+				$productPurchased = true;
+				$prodId = mysql_real_escape_string($prodId);
+				$qty = mysql_real_escape_string($qty);
+				$q = sprintf("INSERT INTO tbl_inventory (prod_id, cus_id, qty) VALUES ('%d', '%d', '%d')", $prodId, $cusId, $qty);
 				//die($q);
 				//mysql_query($q) or die(mysql_error());
 				if (!mysql_query($q)) {
 					// insert failed. the entry probably already exists. Do an update instead.
-					$q = "UPDATE tbl_cus_inventory SET qty = qty+'$qty' WHERE prod_id = '$prodId' and cus_id = '$_SESSION[cus_id]'";
+					$q = sprintf("UPDATE tbl_inventory SET qty = qty+'%d' WHERE prod_id = '%d' and cus_id = '%d'", $qty, $prodId, $cusId);
 					// die($q);
 					// mysql_query($q) or die(mysql_error());
-					if (!mysql_query($q)) {
+					if (!mysql_query($q) || 1 != mysql_affected_rows()) {
+						$productPurchased = false;
 						$succeeded = false;
-						$msg = mysql_error();
+						$failedProdIds .= " $prodId ";
+						$sqlErrors .= ' ' . mysql_error() . ' ';
 					}
+				}
+				
+				// If this product is purchase, remove it from the cart.
+				if ($productPurchased) {
+					unset($_SESSION['cart'][$prodId]);
+					$purchasedProdIds .= " $prodId ";
 				}
 			}
 		}
-		if ($succeeded) {
-			// If purchase successful, clear the cart contents.
-			$_SESSION['cart'] = array();
+
+		if (!$succeeded) {
+			$msg = ' Purchased product IDs (' . $purchasedProdIds
+				. '). Failed to purchase product IDs (' . $failedProdIds
+				. '). sql errors ( ' . $sqlErrors . ')';
 		}
 		
 		return array("succeed" => $succeeded, "msg" => $msg);
