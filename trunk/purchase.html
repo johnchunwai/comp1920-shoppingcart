@@ -29,7 +29,7 @@
 		// Make the purchase as the page loads.
 		$.getJSON("./cart.php?method=makePurchase", function(resp) {
 			if (resp.succeed) {
-				$("#purchase_result").html('your purchase went through.');
+				$("#purchase_result").html('your purchase went through.' + resp.msg);
 			}
 			else {				
 				$("#purchase_result").html('failed to make purchase: ' + resp.msg);

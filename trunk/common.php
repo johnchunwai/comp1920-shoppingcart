@@ -8,10 +8,10 @@
 	//
 	// Settings
 	//
-	define('DB_HOSTNAME', '1');
+	define('DB_HOSTNAME', 'localhost');
 	define('DB_USERNAME', 'root');
-	define('DB_PASSWORD', 'r');
-	define('DB_NAME', 'test');
+	define('DB_PASSWORD', 'root');
+	define('DB_NAME', 'shoppingcart');
 	define('MAX_COUNT_PER_ITEM_IN_CART', 100);	// Only allow a max of 100 of each item in the cart.
 	
 	define('USE_DB', false);	// flag to turn on/off using DB (set to false when DB is not ready yet).
