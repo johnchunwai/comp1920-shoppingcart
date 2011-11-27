@@ -37,7 +37,7 @@
 				content += '<tr>';
 				content += '<td><img src="' + prod.prod_image + '"/></td>';
 				content += '<td>' + prod.prod_name + '</td>';
-				content += '<td>Quantity:' + createSelectForQuantity(prod.prod_id + '_qty', 1, 100, details.qty) + '</td>';
+				content += '<td>Quantity:' + createSelectForQuantity(prod.prod_id + '_qty', 1, 100, prod.qty) + '</td>';
 				content += '<td><input type="button" class="button" id="' + prod.prod_id + '" value="Update Quantity"/></td>';
 				content += '</tr>';
 			});
