@@ -13,28 +13,31 @@
 	/*
 	 * Authenticates user. Returns succeed/failure, error_msg. eg. { true } or { false }.
 	 */
-	function login($userId, $password) {
+	function login($loginname, $password) {
 		$result = false;
-		if ($userId == "comp1920" && $password == "comp1920") {
+		if ($loginname == "comp1920" && $password == "comp1920") {
 			$result = true;
 			$_SESSION['login'] = true;
-			$_SESSION['user_id'] = $userId;
+			$_SESSION['loginname'] = $loginname;
+			$_SESSION['cus_name'] = 'John Chan';
 			$_SESSION['cus_id'] = 1;
 		}
 		return $result;
 	}
 	
 	/*
-	 * Returns the user login info. eg. { "login":true, "user_id":"johnchan" } or { "login":false, "user_id":""}.
+	 * Returns the user login info. eg. { "login":true, "loginname":"johnchan" "cus_name": "John Chan"} or { "login":false }.
 	 */
 	function getLoginInfo() {
-		if (isset($_SESSION['login']) && isset($_SESSION['user_id'])) {
+		if (isset($_SESSION['login']) && isset($_SESSION['loginname']) && isset($_SESSION['cus_name'])) {
 			$result['login'] = $_SESSION['login'];
-			$result['user_id'] = $_SESSION['user_id'];
+			$result['loginname'] = $_SESSION['loginname'];
+			$result['cus_name'] = $_SESSION['cus_name'];
 		}
 		else {
 			$result['login'] = false;
-			$result['user_id'] = null;
+			$result['loginname'] = null;
+			$result['cus_name'] = null;
 		}
 		return $result;
 	}
@@ -65,7 +68,7 @@
 	 */
 	$method = $_REQUEST['method'];
 	if ($method == 'login') {
-		echo json_encode(login($_REQUEST['user_id'], $_REQUEST['password']));
+		echo json_encode(login($_REQUEST['loginname'], $_REQUEST['password']));
 	}
 	else if ($method == 'getLoginInfo') {
 		echo json_encode(getLoginInfo());

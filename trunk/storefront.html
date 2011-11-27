@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>Store</h1>
-	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
+	<p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html">If you're not <span class="cus_name"></span>, click here to logout</a>)</p>
 	<ul class="toolbar_links">
 		<li><a href="./account.html">My Account</a></li>
 	</ul>
@@ -25,18 +25,19 @@
 		
 		ajaxSetup();
 		checkLogin();
+		updateUserId();
 		
 		// Present the product catalog for purchase.
 		$.getJSON('./storefront.php?method=getProducts', function(resp) {
 			// Present the catalog as a table.
 			catalog = '<table>';
-			$.each(resp, function(id, details) {
+			$.each(resp, function(index, prod) {
 				catalog += '<tr>';
-				catalog += '<td><img src="' + details.prod_image + '"/></td>';
-				catalog += '<td>' + details.prod_name + '</td>';
-				catalog += '<td>' + details.prod_desc + '</td>';
-				catalog += '<td>' + createSelectForQuantity(id + '_qty', 1, 10) + '</td>';
-				catalog += '<td><input type="button" class="button" id="' + id + '" value="Add to Cart"/></td>';
+				catalog += '<td><img src="' + prod.prod_image + '"/></td>';
+				catalog += '<td>' + prod.prod_name + '</td>';
+				catalog += '<td>' + prod.prod_desc + '</td>';
+				catalog += '<td>' + createSelectForQuantity(prod.prod_id + '_qty', 1, 10) + '</td>';
+				catalog += '<td><input type="button" class="button" id="' + prod.prod_id + '" value="Add to Cart"/></td>';
 				catalog += '</tr>';
 			});
 			catalog += '</table>';

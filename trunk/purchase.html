@@ -8,7 +8,7 @@
 	<ul class="toolbar_links">
 		<li><a href="./account.html">My Account</a></li>
 	</ul>
-	<p><span class="user_id"></span>, <span id="purchase_result"></span>
+	<p><span class="cus_name"></span>, <span id="purchase_result"></span>
 	<form action="storefront.html">
 		<input type="submit" value="Continue Shopping" />
 	</form>
@@ -25,6 +25,7 @@
 		
 		ajaxSetup();
 		checkLogin();
+		updateUserId();
 		
 		// Make the purchase as the page loads.
 		$.getJSON("./cart.php?method=makePurchase", function(resp) {

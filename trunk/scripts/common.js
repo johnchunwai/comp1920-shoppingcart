@@ -25,8 +25,7 @@ function ajaxSetup() {
 	});
 }
 
-// Check if the user has logged in. If so, set the user_id class span to the userId.
-// If not, redirect user back to login page.
+// Check if the user has logged in. If not, redirect user back to login page.
 function checkLogin() {
 	// Check whether the user already logged in and redirect to login page if not.
 	$.getJSON("./login.php?method=getLoginInfo", function(resp) {
@@ -36,12 +35,15 @@ function checkLogin() {
 				window.location = "login.html";
 			}, 2000);
 		}
-		else {
-			$.getJSON("./customerinfo.php?method=getUserInfo", function(resp) {
-				$(".user_id").html(resp.name);
-			});
-		}
 	});
+}
+
+// Set the user_id class span to the userId.
+function updateUserId() {
+	$.getJSON("./customerinfo.php?method=getUserInfo", function(resp) {
+		$(".cus_name").html(resp.cus_name);
+	});
+
 }
 
 // Helper function to create a HTML select with the specified id,

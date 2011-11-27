@@ -4,13 +4,17 @@
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
 </head>
 <body>
-	<h1>My Account Information</h1>
+	<h1>My Account</h1>
 	<ul class="toolbar_links">
 		<li><a href="./storefront.html">Continue Shopping</a></li>
 		<li><a href="./logout.html">Logout</a></li>
 	</ul>
 
-		
+	<h2>Customer Information</h2>
+	<div id="user_info"></div>	
+
+	<h2>Customer Inventory</h2>
+	<div id="inventory_div"></div>
 
 	<!-- 
 		Javascript section
@@ -21,6 +25,30 @@
 		
 		ajaxSetup();
 		checkLogin();
+		
+		// Retrieve the customer information.
+		$.getJSON('customerinfo.php?method=getUserInfo', function(resp) {
+			content = '<dl>';
+			content += '<dt>Name</dt><dd>' + resp.cus_name + '</dd>';
+			content += '<dt>Login</dt><dd>' + resp.loginname + '</dd>';
+			content += '<dt>Email</dt><dd>' + resp.email + '</dd>';
+			content += '</dl>';
+			$("#user_info").html(content);
+		});
+		
+		// Retrieve the customer inventory.
+		$.getJSON('customerinfo.php?method=getUserInventory', function(resp) {
+			content = '<table>';
+			$.each(resp, function(index, item) {
+				content += '<tr>';
+				content += '<td><img src="' + item.prod_image + '"/></td>';
+				content += '<td>' + item.prod_name + '</td>';
+				content += '<td>' + item.qty + '</td>';
+				content += '</tr>';
+			});
+			content += '</table>';
+			$("#inventory_div").html(content);
+		});
 		
 	</script>
 </body>

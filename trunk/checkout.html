@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>Checkout</h1>
-	<p>Welcome <span class="user_id"></span> to our store. (<a href="./logout.html">If you're not <span class="user_id"></span>, click here to logout</a>)</p>
+	<p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html">If you're not <span class="cus_name"></span>, click here to logout</a>)</p>
 	<ul class="toolbar_links">
 		<li><a href="./account.html">My Account</a></li>
 		<li><a href="./storefront.html">Continue Shopping</a></li>
@@ -27,17 +27,18 @@
 		
 		ajaxSetup();
 		checkLogin();
+		updateUserId();
 		
 		// Show cart content.
 		$.getJSON("./cart.php?method=getCartContent", function(resp) {
 			// Present the cart content as a table.
 			content = '<table>';
-			$.each(resp, function(id, details) {
+			$.each(resp, function(index, prod) {
 				content += '<tr>';
-				content += '<td><img src="' + details.prod_image + '"/></td>';
-				content += '<td>' + details.prod_name + '</td>';
-				content += '<td>Quantity:' + createSelectForQuantity(id + '_qty', 1, 100, details.qty) + '</td>';
-				content += '<td><input type="button" class="button" id="' + id + '" value="Update Quantity"/></td>';
+				content += '<td><img src="' + prod.prod_image + '"/></td>';
+				content += '<td>' + prod.prod_name + '</td>';
+				content += '<td>Quantity:' + createSelectForQuantity(prod.prod_id + '_qty', 1, 100, details.qty) + '</td>';
+				content += '<td><input type="button" class="button" id="' + prod.prod_id + '" value="Update Quantity"/></td>';
 				content += '</tr>';
 			});
 			content += '</table>';
