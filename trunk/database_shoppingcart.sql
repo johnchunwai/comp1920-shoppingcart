@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS tbl_inventory(
 CREATE TABLE IF NOT EXISTS tbl_order(
 	ord_id int not null primary key auto_increment,
 	cus_id int not null,
-	ord_date date not null ,
+	ord_time int not null ,
     CONSTRAINT fk_tbl_order_tbl_customer_cus_id FOREIGN KEY (cus_id) REFERENCES tbl_customer (cus_id) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB;
 

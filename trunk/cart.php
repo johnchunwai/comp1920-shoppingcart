@@ -87,7 +87,31 @@
 		$msg = "";
 		if (USE_DB) {
 			$cusId = mysql_real_escape_string($cusId);
+			$firstItem = true;
+			$orderId = null;
 			foreach ($_SESSION['cart'] as $prodId => $qty) {
+				// Add the order history first.
+				if ($firstItem) {
+					$q = sprintf("INSERT INTO tbl_order (cus_id, ord_time) VALUES ('%d', '%d')", $cusId, time());
+					if (!mysql_query($q)) {
+						// If this fails, do nothing.
+						$productPurchased = false;
+						$succeeded = false;
+						$sqlErrors .= ' ' . mysql_error() . ' ';
+						break;
+					}
+					else {
+						$orderId = mysql_insert_id();
+					}
+					$firstItem = false;
+				}
+				
+				//
+				// Start transaction.
+				//
+				
+				mysql_query('START TRANSACTION');
+				
 				// Try insert first, then try update.
 				$productPurchased = true;
 				$prodId = mysql_real_escape_string($prodId);
@@ -102,17 +126,34 @@
 					// mysql_query($q) or die(mysql_error());
 					if (!mysql_query($q) || 1 != mysql_affected_rows()) {
 						$productPurchased = false;
-						$succeeded = false;
-						$failedProdIds .= " $prodId ";
-						$sqlErrors .= ' ' . mysql_error() . ' ';
 					}
 				}
 				
+				// Update order history
+				if ($productPurchased) {
+					$q = sprintf("INSERT INTO tbl_order_item (ord_id, prod_id, ord_qty) VALUES ('%d', '%d', '%d')",
+						$orderId, $prodId, $qty);
+					if (!mysql_query($q)) {
+						$productPurchased = false;
+					}
+				}
+								
 				// If this product is purchase, remove it from the cart.
 				if ($productPurchased) {
+					mysql_query('COMMIT');
 					unset($_SESSION['cart'][$prodId]);
 					$purchasedProdIds .= " $prodId ";
 				}
+				else {
+					mysql_query('ROLLBACK');
+					$succeeded = false;
+					$failedProdIds .= " $prodId ";
+					$sqlErrors .= ' ' . mysql_error() . ' ';
+				}
+
+				//
+				// End transaction.
+				//
 			}
 		}
 
