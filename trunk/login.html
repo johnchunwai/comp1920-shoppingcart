@@ -43,11 +43,11 @@
 				password: $("#password").val()
 			},
 			function(resp) {
-				if (resp) {
+				if (resp.succeed) {
 					window.location = "storefront.html";
 				}
 				else {
-					$("#error_msg").html("Login Failed");
+					$("#error_msg").html("Login failed: " + resp.msg);
 				}
 			});
 		});

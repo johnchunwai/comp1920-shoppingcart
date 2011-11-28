@@ -11,18 +11,41 @@
 	initDb();
 	
 	/*
-	 * Authenticates user. Returns succeed/failure, error_msg. eg. { true } or { false }.
+	 * Authenticates user. Returns succeed/failure, error_msg. eg. { "succeed":true } or { "succeed":false, "msg":"error message" }.
 	 */
 	function login($loginname, $password) {
-		$result = false;
-		if ($loginname == "comp1920" && $password == "comp1920") {
-			$result = true;
-			$_SESSION['login'] = true;
-			$_SESSION['loginname'] = $loginname;
-			$_SESSION['cus_name'] = 'John Chan';
-			$_SESSION['cus_id'] = 1;
+		$succeed = false;
+		$msg = "";
+		if (USE_DB) {
+			$loginname = mysql_real_escape_string($loginname);
+			$password = mysql_real_escape_string($password);
+			$q = "SELECT cus_id, cus_name FROM tbl_customer WHERE cus_loginname = '$loginname' AND cus_password = '$password'";
+			if ($rs = mysql_query($q)) {
+				if ($r = mysql_fetch_assoc($rs)) {
+					$succeed = true;
+					$_SESSION['login'] = true;
+					$_SESSION['loginname'] = $loginname;
+					$_SESSION['cus_name'] = $r['cus_name'];
+					$_SESSION['cus_id'] = $r['cus_id'];
+				}
+				else {
+					$msg = "Invalid credential.";
+				}
+			}
+			else {
+				$msg = mysql_error();
+			}
 		}
-		return $result;
+		else {
+			if ($loginname == "comp1920" && $password == "comp1920") {
+				$succeed = true;
+				$_SESSION['login'] = true;
+				$_SESSION['loginname'] = $loginname;
+				$_SESSION['cus_name'] = 'John Chan';
+				$_SESSION['cus_id'] = 1;
+			}
+		}
+		return array('succeed' => $succeed, 'msg' => $msg);
 	}
 	
 	/*
