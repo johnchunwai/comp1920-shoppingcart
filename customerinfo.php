@@ -17,7 +17,18 @@
 	 * Return an array of user information.
 	 */
 	function getUserInfo($cusId) {
-		$userInfo = array("cus_name" => $_SESSION['cus_name'], "loginname" => $_SESSION['loginname'], 'email' => 'cchan331@my.bc.it.ca');
+		$email = null;
+		if (USE_DB) {
+			//
+			// IMPLEMENT THIS!!!
+			//
+			// do a select from tbl_customer for email where cusId matches.
+			// update email.
+		}
+		else {
+			$email = 'cchan331@my.bc.it.ca';
+		}
+		$userInfo = array("cus_name" => $_SESSION['cus_name'], "loginname" => $_SESSION['loginname'], 'email' => $email);
 		return $userInfo;
 	}
 	
@@ -26,12 +37,23 @@
 	 * Return list of inventory for a user as item name, quantity pair.
 	 */
 	function getUserInventory($cusId) {
-		$inventory = array(
-			array("prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
-			array("prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
-			array("prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
-		);
-		return $inventory;
+		if (USE_DB) {
+			$inventory = array();
+			//
+			// IMPLEMENT THIS!!!
+			//
+			// do a select on tbl_inventory, tbl_product where prod_id matches and cus_id = $cusId.
+			// show the result.
+			return $inventory;
+		}
+		else {
+			$inventory = array(
+				array("prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
+				array("prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
+				array("prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
+			);
+			return $inventory;
+		}
 	}
 	
 	/*

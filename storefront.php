@@ -16,12 +16,28 @@
 	 * Return a list of product IDs mapping to product details.
 	 */
 	function getProducts() {
-		$products = array(
-			array("prod_id" => 1, "prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./img/radioactive_blue.jpg"),
-			array("prod_id" => 2, "prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./img/dry_cow_dung.jpg"),
-			array("prod_id" => 3, "prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./img/bill.jpg")
-		);
-		return $products;
+		if (USE_DB) {
+			//
+			// IMPLEMENT THIS!!!
+			//
+			$products = array();
+			$products = array(
+				array("prod_id" => 1, "prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./img/radioactive_blue.jpg"),
+				array("prod_id" => 2, "prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./img/dry_cow_dung.jpg"),
+				array("prod_id" => 3, "prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./img/bill.jpg")
+			);
+			// do a sql select from tbl_product. For each product, add it like this:
+			// $products[] = array(product details...);
+			return $products;
+		}
+		else {
+			$products = array(
+				array("prod_id" => 1, "prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./img/radioactive_blue.jpg"),
+				array("prod_id" => 2, "prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./img/dry_cow_dung.jpg"),
+				array("prod_id" => 3, "prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./img/bill.jpg")
+			);
+			return $products;
+		}
 	}
 	
 	/*
