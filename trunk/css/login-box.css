@@ -3,7 +3,15 @@
  File name: login-box.css */
  
 
-
+#box{
+	width:1050px;
+	height: 1280px;
+	padding: 100px 50px 0 100px;
+	color: #ebebeb;
+	font: 14px Arial, Helvetica, sans-serif;
+	background: url(images/box-backg.png) no-repeat left top;
+	
+}
 
 #login-box img {
 	border:none;
