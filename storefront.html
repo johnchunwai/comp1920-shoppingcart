@@ -25,7 +25,6 @@
 		
 		ajaxSetup();
 		checkLogin();
-		updateUserId();
 		
 		// Present the product catalog for purchase.
 		$.getJSON('./storefront.php?method=getProducts', function(resp) {

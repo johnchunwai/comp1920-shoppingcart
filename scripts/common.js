@@ -35,15 +35,10 @@ function checkLogin() {
 				window.location = "login.html";
 			}, 2000);
 		}
+		else {
+			$(".cus_name").html(resp.cus_name);
+		}
 	});
-}
-
-// Set the user_id class span to the userId.
-function updateUserId() {
-	$.getJSON("./customerinfo.php?method=getUserInfo", function(resp) {
-		$(".cus_name").html(resp.cus_name);
-	});
-
 }
 
 // Helper function to create a HTML select with the specified id,
