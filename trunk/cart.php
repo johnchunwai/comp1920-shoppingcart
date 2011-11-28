@@ -5,6 +5,7 @@
 	 * File description: Provides functionalities for a shopping cart.
 	 */
 	require_once('common.php');
+	require_once('storefront.php');
 	
 	session_start();
 	if (!validateSession()) {
@@ -56,7 +57,19 @@
 	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
 	function updateCartItemCount($prodId, $count) {
-		return array("succeed" => false, "qty" => 34);
+		if (USE_DB) {
+			$succeed = true;
+			$qty = 0;
+			//
+			// IMPLEMENT THIS!!!
+			//
+			// if !isset($_SESSION['cart'][$prodId]), set $succeed to false.
+			// update $_SESSION['cart'][$prodId] = $count. If $count is 0, unset $_SESSION['cart'][$prodId].
+			return array('succeed' => $succeed, 'qty' => $qty);
+		}
+		else {
+			return array("succeed" => false, "qty" => 34);
+		}
 	}
 	
 	/*
@@ -64,15 +77,36 @@
 	 * Return a list of product ID, names and quantities.
 	 */
 	function getCartContent() {
-		$cartContent = array(
-			array("prod_id" => 1, "prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
-			array("prod_id" => 2, "prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
-			array("prod_id" => 3, "prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
-		);
-		// 1) get the cart from session 2) call getProducts in storefront
-		// 3) loop through each item in cart, for each prodId, look for the corresponding prod_name and prod_image
-		// from the return value from getProducts and put them into an array for return. 
-		return $cartContent;
+		if (USE_DB) {
+			$cartContent = array();
+			$products = getProducts();
+			foreach ($_SESSION['cart'] as $prodId => $qty) {
+				$foundProduct = null;
+				foreach ($products as $product) {
+					if ($product['prod_id'] == $prodId) {
+						$foundProduct = $product;
+						break;
+					}
+				}
+				if ($foundProduct) {
+					$cartContent[] = array('prod_id' => $prodId, 'prod_name' => $foundProduct['prod_name'],
+						'prod_image' => $foundProduct['prod_image'], 'qty' => $qty);
+				}
+				else {
+					// if the product is not found, remove it from the cart.
+					unset($_SESSION['cart'][$prodId]);
+				}
+			}
+			return $cartContent;			
+		}
+		else {
+			$cartContent = array(
+				array("prod_id" => 1, "prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
+				array("prod_id" => 2, "prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
+				array("prod_id" => 3, "prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
+			);
+			return $cartContent;
+		}
 	}
 	
 	/*
