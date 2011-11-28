@@ -14,7 +14,7 @@
 	define('DB_NAME', 'shoppingcart');
 	define('MAX_COUNT_PER_ITEM_IN_CART', 100);	// Only allow a max of 100 of each item in the cart.
 	
-	define('USE_DB', false);	// flag to turn on/off using DB (set to false when DB is not ready yet).
+	define('USE_DB', true);	// flag to turn on/off using DB (set to false when DB is not ready yet).
 	
 	// Initialize mysql.
 	function initDb() {
@@ -26,7 +26,8 @@
 	
 	// Sanity checks for logged in users.
 	function validateSession() {
-		isset($_SESSION['loginname']) or die("Failed to get loginname");
-		isset($_SESSION['cus_id']) or die("Failed to get cus_id");
+		isset($_SESSION['loginname']) or die('Failed to get loginname');
+		isset($_SESSION['cus_name']) or die('Failed to get cus_name');
+		isset($_SESSION['cus_id']) or die('Failed to get cus_id');
 	}
 ?>
