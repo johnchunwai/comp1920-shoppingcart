@@ -102,6 +102,7 @@
 					}
 					else {
 						$orderId = mysql_insert_id();
+						$msg = " Your order ID is $orderId";
 					}
 					$firstItem = false;
 				}
