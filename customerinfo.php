@@ -8,6 +8,7 @@
 	
 	session_start();
 	validateSession();
+	initDb();
 	
 	/*
 	 * Get detail information about a user.
@@ -36,17 +37,67 @@
 	 * Return a sorted list of order history as date, order ID.
 	 */
 	function getUserOrderHistory($cusId) {
-		$orderHistory = array("Jan 13, 2011 01:15 AM" => 1, "Jan 02, 2011 11:15 PM" => 2);
-		return $orderHistory;
+		if (USE_DB) {
+			$succeed = true;
+			$msg = null;
+			$history = array();
+			$cusId = mysql_real_escape_string($cusId);
+			$q = sprintf("SELECT ord_id, ord_time FROM tbl_order WHERE cus_id='%d' ORDER BY ord_time DESC", $cusId);
+			if ($rs = mysql_query($q)) {
+				while ($r = mysql_fetch_assoc($rs)) {
+					$order['ord_id'] = $r['ord_id'];
+					$order['ord_time'] = date(DATE_COOKIE, $r['ord_time']);
+					$history[] = $order;
+				}
+			}
+			else {
+				$succeed = false;
+				$msg = 'Failed to retrieve order history: ' . mysql_error();
+			}
+			return array('succeed' => $succeed, 'msg' => $msg, 'history' => $history);
+		}
+		else {
+			$orderHistory = array('succeed' => true, 'msg' => '', 'history' => array(
+					array('ord_id' => 1, 'ord_time' => "Jan 13, 2011 01:15 AM"),
+					array('ord_id' => 2, 'ord_time' => "Jan 02, 2011 11:15 PM")
+				)
+			);
+			return $orderHistory;
+		}
 	}
 	
 	/*
 	 * Get the details of an order.
 	 * Return a list of product name, quantity pairs.
 	 */
-	function getOrderDetails($orderId) {
-		$order = array("item1" => 1, "item2" => 10);
-		return $order;
+	function getOrderDetail($orderId) {
+		if (USE_DB) {
+			$succeed = true;
+			$msg = null;
+			$detail = array();
+			$orderId = mysql_real_escape_string($orderId);
+			$q = sprintf("SELECT p.prod_name, o.ord_qty FROM tbl_order_item AS o, tbl_product AS p WHERE o.ord_id='%d' AND o.prod_id=p.prod_id", $orderId);
+			if ($rs = mysql_query($q)) {
+				while ($r = mysql_fetch_assoc($rs)) {
+					$item['prod_name'] = $r['prod_name'];
+					$item['qty'] = $r['ord_qty'];
+					$detail[] = $item;
+				}
+			}
+			else {
+				$succeed = false;
+				$msg = 'Failed to retrieve order detail: ' . mysql_error();
+			}
+			return array('succeed' => $succeed, 'msg' => $msg, 'detail' => $detail);
+		}
+		else {
+			$order = array('succeed' => true, 'msg' => '', 'detail' => array(
+						array('prod_name' => 'item01', 'qty' => 10),
+						array('prod_name' => 'item02', 'qty' => 20)
+					)
+				);
+			return $order;
+		}
 	}
 	
 	/*
@@ -62,7 +113,7 @@
 	else if ($method == 'getUserOrderHistory') {
 		echo json_encode(getUserOrderHistory($_SESSION['cus_id']));
 	}
-	else if ($method == 'getOrderDetails') {
-		echo json_encode(getOrderDetails($_REQUEST['orderId']));
+	else if ($method == 'getOrderDetail') {
+		echo json_encode(getOrderDetail($_REQUEST['ord_id']));
 	}
 ?>	
