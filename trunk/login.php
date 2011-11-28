@@ -52,7 +52,7 @@
 	 * Returns the user login info. eg. { "login":true, "loginname":"johnchan" "cus_name": "John Chan"} or { "login":false }.
 	 */
 	function getLoginInfo() {
-		if (isset($_SESSION['login']) && isset($_SESSION['loginname']) && isset($_SESSION['cus_name'])) {
+		if (validateSession()) {
 			$result['login'] = $_SESSION['login'];
 			$result['loginname'] = $_SESSION['loginname'];
 			$result['cus_name'] = $_SESSION['cus_name'];

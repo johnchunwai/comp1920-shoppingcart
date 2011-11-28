@@ -7,7 +7,9 @@
 	require_once('common.php');
 	
 	session_start();
-	validateSession();
+	if (!validateSession()) {
+		return null;
+	}
 	initDb();
 	
 	/*

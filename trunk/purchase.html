@@ -25,7 +25,6 @@
 		
 		ajaxSetup();
 		checkLogin();
-		updateUserId();
 		
 		// Make the purchase as the page loads.
 		$.getJSON("./cart.php?method=makePurchase", function(resp) {
