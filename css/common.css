@@ -10,9 +10,10 @@
 }
 .toolbar_links a:link, .toolbar_links a:visited {
 	display: block;
-	width: 110px;
+	width: 140px;
+	height:30px;
 	font-weight: bold;
-	font-size:x-small;
+	font-size:15px;
 	color: #ffffff;
 	background-color: #98bf21;
 	text-align: center;
@@ -22,4 +23,14 @@
 }
 .toolbar_links a:hover, .toolbar_links a:active {
 	background-color: #7a991a;
+}
+
+#box{
+	width:1050px;
+	height: 1280px;
+	padding: 100px 50px 0 100px;
+	color: #ebebeb;
+	font: 14px Arial, Helvetica, sans-serif;
+	background: url(images/box-backg.png) no-repeat left top;
+	
 }
