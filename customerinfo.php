@@ -14,7 +14,7 @@
 	 * Return an array of user information.
 	 */
 	function getUserInfo($cusId) {
-		$userInfo = array("cus_name" => "John Chan", "loginname" => 'cchan', 'email' => 'cchan331@my.bc.it.ca');
+		$userInfo = array("cus_name" => $_SESSION['cus_name'], "loginname" => $_SESSION['loginname'], 'email' => 'cchan331@my.bc.it.ca');
 		return $userInfo;
 	}
 	
