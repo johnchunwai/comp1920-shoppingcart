@@ -2,25 +2,32 @@
 <head>
 	<title>My Account</title>
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>My Account</h1>
-	<ul class="toolbar_links">
-		<li><a href="./storefront.html">Continue Shopping</a></li>
-		<li><a href="./logout.html">Logout</a></li>
-	</ul>
+<div style="padding: 0 0 0 300px;">
+	<div id="box2">
+		<h1>My Account</h1>
+		<hr align="left"/>
+		<ul class="toolbar_links">
+			<li><a href="./storefront.html"><img src="./css/images/btn-ConShop1.png"/></a></li>
+			<li><a href="./logout.html"><img src="./css/images/btn-logout-gr.png"/></a></li>
+		</ul>
 
-	<h2>Customer Information</h2>
-	<div id="user_info"></div>	
+		<h2>Customer Information</h2>
+		<hr align="left"/>
+		<div id="user_info"></div>	
 
-	<h2>Customer Inventory</h2>
-	<div id="inventory_div"></div>
-	
-	<h2>Order History</h2>
-	Click the order for order details.
-	<div id="order_history_msg"></div>
-	<div id="order_history_div"><input id="show_history" type="button" value="Show history"/></div>
-
+		<h2>Customer Inventory</h2>
+		<hr align="left"/>
+		<div id="inventory_div"></div>
+		
+		<h2>Order History</h2>
+		<hr align="left"/>
+		Click the "Show History" for order details.
+		<div id="order_history_msg"></div><br/><br/>
+		<div id="order_history_div"><input id="show_history" type="image" src="./css/images/btn-ShowHis.png"  value="Show history"/></div>
+	</div>
 	<!-- 
 		Javascript section
 	-->
@@ -100,5 +107,6 @@
 		});
 		
 	</script>
+</div>
 </body>
 </html>
