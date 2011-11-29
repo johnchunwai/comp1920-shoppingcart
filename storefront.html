@@ -2,21 +2,24 @@
 <head>
 	<title>Storefront</title>
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div style="padding: 0 0 0 300px;">
 	<div id="box">
         <h1>Store</h1>
         <hr align="left"/>
         <p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html"><font color="#FBB917">If you're not <span class="cus_name"></span>, click here to logout</font></a>)</p>
         <ul class="toolbar_links">
-            <li><a href="./account.html">My Account</a></li>
+            <li><a href="./account.html"><img src="./css/images/btn-MyAcc1.png"/></a></li>
         </ul>
+		<br/><br/>
         <h2>Products</h2>
 		<hr align="left"/>
         <div id="product_div"></div>
-        <div id="msg"></div>
+        <div id="msg"></div><br/><br/>
         <form action="./checkout.html">
-            <input type="submit" value="Proceed to Checkout"/>
+            <input type="image" src="./css/images/btn-Proceed.png" value="Proceed to Checkout"/>
         </form>
 	</div>
     
@@ -40,7 +43,7 @@
 				catalog += '<td>' + prod.prod_name + '</td>';
 				catalog += '<td>' + prod.prod_desc + '</td>';
 				catalog += '<td>' + createSelectForQuantity(prod.prod_id + '_qty', 1, 10) + '</td>';
-				catalog += '<td><input type="button" class="button" id="' + prod.prod_id + '" value="Add to Cart"/></td>';
+				catalog += '<td><input type="image" src="./css/images/btn-Add.png" class="button" id="' + prod.prod_id + '" value="Add to Cart"/></td>';
 				catalog += '</tr>';
 			});
 			catalog += '</table>';
@@ -65,5 +68,6 @@
 		});
 
 	</script>
+</div>
 </body>
 </html>
