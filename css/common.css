@@ -8,7 +8,7 @@
 	float: left;
 	margin: 2px;
 }
-.toolbar_links a:link, .toolbar_links a:visited {
+/*.toolbar_links a:link, .toolbar_links a:visited {
 	display: block;
 	width: 140px;
 	height:30px;
@@ -19,18 +19,9 @@
 	text-align: center;
 	padding: 4px 1px 4px 1px;
 	text-decoration: none;
-	text-transform: uppercase;
+	text-transform: uppercase;*/
 }
 .toolbar_links a:hover, .toolbar_links a:active {
 	background-color: #7a991a;
 }
 
-#box{
-	width:1050px;
-	height: 1280px;
-	padding: 100px 50px 0 100px;
-	color: #ebebeb;
-	font: 14px Arial, Helvetica, sans-serif;
-	background: url(images/box-backg.png) no-repeat left top;
-	
-}
