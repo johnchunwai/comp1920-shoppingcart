@@ -61,7 +61,7 @@ INSERT INTO tbl_customer (cus_name, cus_loginname, cus_password, cus_email) VALU
 	('Bill Yu', 'byu', 'comp1920', 'byu39@my.bcit.ca'),
 	('Patrick Kowalski', 'pkowalski', 'comp1920', 'pkowalski@my.bcit.ca'),
 	('Sahra Dilmaghanyan', 'sdilmaghanyan', 'comp1920', 'sdilmaghanyan@my.bcit.ca'),
-	('Sami Jashromi', 'sjahromi', 'comp1920', 'seshraghjahromi@my.bcit.ca');
+	('Sami Jashromi', 'sjashromi', 'comp1920', 'samiii1254@gmail.com');
 
 INSERT INTO tbl_product (prod_name, prod_desc, prod_image) VALUES
 	('Radioactive Blue Cheese', 'Accidental by-product of an experiemental drug.', './img/radioactive_blue_inv.gif'),
