@@ -77,7 +77,7 @@
 			//return array('succeed' => $succeed, 'qty' => $qty);
 		//}
 		//else {
-			//return array("succeed" => false, "qty" => 34);
+		return array("succeed" => false, "qty" => 34);
 		//}
 		
 	}
