@@ -7,11 +7,11 @@
 	require_once('common.php');
 	require_once('storefront.php');
 	
-	session_start();
-	if (!validateSession()) {
-		return null;
-	}
-	initDb();
+	//session_start();
+	//if (!validateSession()) {
+	//	return null;
+	//}
+	//initDb();
 	
 	
 	// Initialize the shopping cart.
