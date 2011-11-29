@@ -2,20 +2,33 @@
 <head>
 	<title>Purchase</title>
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>Purchase</h1>
-	<ul class="toolbar_links">
-		<li><a href="./account.html">My Account</a></li>
-	</ul>
-	<p><span class="cus_name"></span>, <span id="purchase_result"></span>
-	<form action="storefront.html">
-		<input type="submit" value="Continue Shopping" />
-	</form>
-	<form action="Logout.html">
-		<input type="submit" value="Logout" />
-	</form>
-	
+<div style="padding: 0 0 0 300px;">
+	<div id="box">
+		<h1>Purchase</h1>
+		<hr align="left"/>
+		<ul class="toolbar_links">
+			<li><a href="./account.html"><img src="./css/images/btn-MyAcc1.png"/></a></li>
+		</ul>
+		<p><span class="cus_name"></span>, <span id="purchase_result"></span>
+		<br/><br/>
+		<table border="0">
+			<td>
+				<tr>
+					<form action="storefront.html">
+						<input type="image" src="./css/images/btn-ConShop.png" value="Continue Shopping" />
+					</form>
+				</tr>
+				<tr>
+					<form action="Logout.html">
+						<input type="image" src="./css/images/btn-logout.png" value="Logout" />
+					</form>
+				</tr>
+			</td>
+		</table>
+	</div>
 	<!-- 
 		Javascript section
 	-->
@@ -37,5 +50,6 @@
 		});
 		
 	</script>
+</div>
 </body>
 </html>
