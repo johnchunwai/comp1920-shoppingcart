@@ -24,6 +24,7 @@
 			//
 			// do a select from tbl_customer for email where cusId matches.
 			// update email.
+			$email = "SELECT cus_email from tbl_customer WHERE cus_id = '$cusID'";
 		}
 		else {
 			$email = 'cchan331@my.bc.it.ca';
@@ -44,6 +45,7 @@
 			//
 			// do a select on tbl_inventory, tbl_product where prod_id matches and cus_id = $cusId.
 			// show the result.
+			$inventory = "SELECT * FROM tbl_inventory WHERE cus_id = '$cusID' AND prod_id = tbl_product.prod_id";
 			return $inventory;
 		}
 		else {
