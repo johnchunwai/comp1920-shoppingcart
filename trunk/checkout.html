@@ -1,23 +1,30 @@
 <html>
+
 <head>
 	<title>Checkout</title>
 	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>Checkout</h1>
-	<p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html">If you're not <span class="cus_name"></span>, click here to logout</a>)</p>
-	<ul class="toolbar_links">
-		<li><a href="./account.html">My Account</a></li>
-		<li><a href="./storefront.html">Continue Shopping</a></li>
-	</ul>
-	<h2>Review Your Order</h2>
-	<div id="cart_content_div"></div>
-	To delete an item, change its quantity to 0, then click Update Quantity.
-	<div id="msg"></div>
-	<form action="./purchase.html">
-		<input type="submit" value="Continue"/>
-	</form>
-
+<div style="padding: 0 0 0 300px;">
+	<div id="box">
+		<h1>Checkout</h1>
+		<hr align="left"/>
+		<p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html"><font color="#FBB917">If you're not <span class="cus_name"></span>, click here to logout</font></a>)</p>
+		<ul class="toolbar_links">
+			<li><a href="./account.html"><img src="./css/images/btn-MyAcc1.png"/></a></li>
+			<li><a href="./storefront.html"><img src="./css/images/btn-ConShop1.png"/></a></li>
+		</ul>
+		<br/><br/>
+		<h2>Review Your Order</h2>
+		<hr align="left"/>
+		<div id="cart_content_div"></div>
+		To delete an item, change its quantity to 0, then click Update Quantity.
+		<div id="msg"></div><br/><br/>
+		<form action="./purchase.html">
+			<input type="image" src="./css/images/btn-Continue.png" value="Continue"/>
+		</form>
+	</div>
 	<!-- 
 		Javascript section
 	-->
@@ -67,5 +74,6 @@
 		});
 
 	</script>
+</div>
 </body>
 </html>
