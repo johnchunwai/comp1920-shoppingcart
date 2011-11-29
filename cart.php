@@ -23,30 +23,38 @@
 	 * Adds a certain quantity of an item to the cart.
 	 * Return succeed/failure, error message pair. Eg. {"succeed":true} or {"succeed":false,"msg":"cart add error"};
 	 */
-	function addToCart($prodId, $count) {
+	function addToCart($prodId, $count) 
+	{
 		$succeeded = true;
-		if (!isset($_SESSION['cart'][$prodId])) {
+		if (!isset($_SESSION['cart'][$prodId]))
+		{
 			// If the product is not added to cart, add it.
 			$_SESSION['cart'][$prodId] = $count;
 		}
-		else {
+		else
+		{
 			// The product is already in cart, check if it reaches the cap of 100 (constant defined in common.php).
-			if ($_SESSION['cart'][$prodId] == MAX_COUNT_PER_ITEM_IN_CART) {
+			if ($_SESSION['cart'][$prodId] == MAX_COUNT_PER_ITEM_IN_CART)
+			{
 				$succeeded = false;
 			}
-			else {
+			else
+			{
 				// It hasn't reached the cap yet, add it to cart.
 				$_SESSION['cart'][$prodId] += $count;
 				// Make sure we don't exceed our limit.
-				if ($_SESSION['cart'][$prodId] > MAX_COUNT_PER_ITEM_IN_CART) {
+				if ($_SESSION['cart'][$prodId] > MAX_COUNT_PER_ITEM_IN_CART)
+				{
 					$_SESSION['cart'][$prodId] = MAX_COUNT_PER_ITEM_IN_CART;
 				}
 			}
 		}
-		if ($succeeded) {
+		if ($succeeded)
+		{
 			$result = array('succeed' => true, 'msg' => "Product ID: $prodId Total quantity: " . $_SESSION['cart'][$prodId]);
 		}
-		else {
+		else
+		{
 			$result = array('succeed' => false, 'msg' => 'Reached the limited of ' . MAX_COUNT_PER_ITEM_IN_CART . ' items per product in cart.');
 		}
 		return $result;
@@ -56,20 +64,22 @@
 	 * Update the quantity of a certain item in the cart.  
 	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
-	function updateCartItemCount($prodId, $count) {
-		if (USE_DB) {
-			$succeed = true;
-			$qty = 0;
-			//
-			// IMPLEMENT THIS!!!
-			//
-			// if !isset($_SESSION['cart'][$prodId]), set $succeed to false.
-			// update $_SESSION['cart'][$prodId] = $count. If $count is 0, unset $_SESSION['cart'][$prodId].
-			return array('succeed' => $succeed, 'qty' => $qty);
-		}
-		else {
-			return array("succeed" => false, "qty" => 34);
-		}
+	function CartItemCount($prodId, $count)
+	{
+		//if (USE_DB) {
+			//$succeed = true;
+			//$qty = 0;
+			////
+			//// IMPLEMENT THIS!!!
+			////
+			//// if !isset($_SESSION['cart'][$prodId]), set $succeed to false.
+			//// update $_SESSION['cart'][$prodId] = $count. If $count is 0, unset $_SESSION['cart'][$prodId].
+			//return array('succeed' => $succeed, 'qty' => $qty);
+		//}
+		//else {
+			//return array("succeed" => false, "qty" => 34);
+		//}
+		
 	}
 	
 	/*
