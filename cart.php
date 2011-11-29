@@ -64,7 +64,7 @@
 	 * Update the quantity of a certain item in the cart.  
 	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
-	function CartItemCount($prodId, $count)
+	function updateCartItemCount($prodId, $count)
 	{
 		//if (USE_DB) {
 			//$succeed = true;
