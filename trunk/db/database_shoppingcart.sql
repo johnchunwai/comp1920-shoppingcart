@@ -64,6 +64,6 @@ INSERT INTO tbl_customer (cus_name, cus_loginname, cus_password, cus_email) VALU
 	('Sami Jashromi', 'sjashromi', 'comp1920', 'samiii1254@gmail.com');
 
 INSERT INTO tbl_product (prod_name, prod_desc, prod_image) VALUES
-	('Radioactive Blue Cheese', 'Accidental by-product of an experiemental drug.', './img/radioactive_blue_inv.gif'),
+	('Radioactive Blue Cheese', 'Accidental by-product of an experiemental drug.', './img/radioactive_blue.jpg'),
 	('Dry Cow Dung', 'Quite a lot of skill needed to be applied while making these piles.', './img/dry_cow_dung.jpg'),
 	('Monopoly Bill', 'A monopoly bill where you can write any amount onto it.', './img/bill.jpg');
