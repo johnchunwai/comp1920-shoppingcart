@@ -50,15 +50,20 @@
 		
 		// Retrieve the customer inventory.
 		$.getJSON('customerinfo.php?method=getUserInventory', function(resp) {
-			content = '<table>';
-			$.each(resp, function(index, item) {
-				content += '<tr>';
-				content += '<td><img src="' + item.prod_image + '"/></td>';
-				content += '<td>' + item.prod_name + '</td>';
-				content += '<td>' + item.qty + '</td>';
-				content += '</tr>';
-			});
-			content += '</table>';
+			if (resp.succeed) {
+				content = '<table>';
+				$.each(resp.inventory, function(index, item) {
+					content += '<tr>';
+					content += '<td><img src="' + item.prod_image + '"/></td>';
+					content += '<td>' + item.prod_name + '</td>';
+					content += '<td>' + item.qty + '</td>';
+					content += '</tr>';
+				});
+				content += '</table>';
+			}
+			else {
+				content = resp.msg;
+			}
 			$("#inventory_div").html(content);
 		});
 		
