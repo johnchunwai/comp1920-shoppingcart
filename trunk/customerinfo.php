@@ -17,17 +17,21 @@
 	 * Return an array of user information.
 	 */
 	function getUserInfo($cusId) {
-		$email = null;
+		$email = 'NA';
 		if (USE_DB) {
-			//
-			// IMPLEMENT THIS!!!
-			//
-			// do a select from tbl_customer for email where cusId matches.
-			// update email.
-			$email = "SELECT cus_email from tbl_customer WHERE cus_id = '$cusID'";
+			// Fetch the email for this customer from tbl_customer. The other info are already in session.
+			$q = "SELECT cus_email from tbl_customer WHERE cus_id='$cusId' LIMIT 1";
+			if ($rs = mysql_query($q)) {
+				if ($r = mysql_fetch_assoc($rs)) {
+					$email = $r['cus_email'];	
+				}
+			}
+			else {
+				$email = mysql_error();
+			}
 		}
 		else {
-			$email = 'cchan331@my.bc.it.ca';
+			$email = 'cchan@my.bc.it.ca';
 		}
 		$userInfo = array("cus_name" => $_SESSION['cus_name'], "loginname" => $_SESSION['loginname'], 'email' => $email);
 		return $userInfo;
@@ -38,24 +42,31 @@
 	 * Return list of inventory for a user as item name, quantity pair.
 	 */
 	function getUserInventory($cusId) {
+		$succeed = true;
+		$msg = null;
+		$inventory = null;
 		if (USE_DB) {
-			$inventory = array();
-			//
-			// IMPLEMENT THIS!!!
-			//
-			// do a select on tbl_inventory, tbl_product where prod_id matches and cus_id = $cusId.
-			// show the result.
-			$inventory = "SELECT * FROM tbl_inventory WHERE cus_id = '$cusID' AND prod_id = tbl_product.prod_id";
-			return $inventory;
+			// Retrieve the inventory for this customer.
+			$q = "SELECT prod.prod_image, prod.prod_name, inv.qty FROM tbl_inventory as inv, tbl_product as prod WHERE cus_id='$cusId' AND inv.prod_id=prod.prod_id";
+			if ($rs = mysql_query($q)) {
+				while ($r = mysql_fetch_assoc($rs)) {
+					$inventory[] = array('prod_image' => $r['prod_image'], 'prod_name' => $r['prod_name'], 'qty' => $r['qty']);
+				}
+			}
+			else {
+				$succeed = false;
+				$msg = 'Failed to retrieve inventory for customer: ' . mysql_error();
+			}
 		}
 		else {
+			$succeed = true;
 			$inventory = array(
 				array("prod_name" => "item1", "prod_image" => "./img/radioactive_blue.jpg", "qty" => 67),
 				array("prod_name" => "item2", "prod_image" => "./img/dry_cow_dung.jpg", "qty" => 13),
 				array("prod_name" => "item3", "prod_image" => "./img/bill.jpg", "qty" => 23)
 			);
-			return $inventory;
 		}
+		return array('succeed' => $succeed, 'msg' => $msg, 'inventory' => $inventory);
 	}
 	
 	/*

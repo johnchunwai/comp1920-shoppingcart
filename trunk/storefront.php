@@ -4,64 +4,52 @@
 	 * File name: storefront.php
 	 * File description: Store front to show available merchandise.
 	 */
+
+	require_once ('common.php');
 	
-	 require_once('common.php');
-        
-        
-        session_start();
+	session_start();
 	if (!validateSession()) {
 		return null;
 	}
-        
-        
-        
-    
-         
-           
-        
-	 	
+	initDb();
+	
 	/*
 	 * Function to list products available for purchase.
 	 * Return a list of product IDs mapping to product details.
 	 */
 	function getProducts() {
-		
-            mysql_connect("localhost","root","") or die("error connecting");
-            mysql_select_db("shoppingcart") or die("databse doesnt exist");
-            $q = "SELECT * FROM tbl_product";
-            $result = mysql_query($q) or die("cant run query");
-        
-        
-       
-            $row1 = mysql_fetch_row($result);
-            
-         
-            $row2 = mysql_fetch_row($result);
-         
-            $row3 = mysql_fetch_row($result);
-			//
-			// IMPLEMENT THIS!!!
-			//
-			$products = array();
-			$products = array(
-				array("prod_id" => $row1[0], "prod_name" => $row1[1], "prod_desc" => $row1[2], "prod_image" => $row1[3]),
-				array("prod_id" => $row2[0], "prod_name" => $row2[1], "prod_desc" => $row2[2], "prod_image" => $row2[3]),
-				array("prod_id" => $row3[0], "prod_name" => $row3[1], "prod_desc" => $row3[2], "prod_image" => $row3[3])
+		if (USE_DB) {
+			$succeed = true;
+			$msg = null;
+			$products = null;
+			
+			// read from product table
+			$q = "SELECT * FROM tbl_product";
+			if ($result = mysql_query($q)) {
+				while ($row = mysql_fetch_assoc($result)) {
+					$products[] = array("prod_id" => $row['prod_id'], "prod_name" => $row['prod_name'], "prod_desc" => $row['prod_desc'], "prod_image" => $row['prod_image']);
+				}
+			}
+			else {
+				$succeed = false;
+				$msg = mysql_error();
+			}
+			return array('succeed' => $succeed, 'msg' => $msg, 'products' => $products);
+		} else {
+			$resp = array("succeed" => true, "products" =>
+				array("prod_id" => 1, "prod_name" => "item1", "prod_desc" => "item1 description", "prod_image" => "./img/radioactive_blue.jpg"),
+				array("prod_id" => 2, "prod_name" => "item2", "prod_desc" => "item2 description", "prod_image" => "./img/dry_cow_dung.jpg"),
+				array("prod_id" => 3, "prod_name" => "item3", "prod_desc" => "item3 description", "prod_image" => "./img/bill.jpg")
 			);
-			// do a sql select from tbl_product. For each product, add it like this:
-			// $products[] = array(product details...);
-			return $products;
-                
-	
+			return $resp;
+		}
 	}
-	
+
 	/*
 	 * Script to invoke methods.
 	 */
-        $method = $_REQUEST['method'];
+	$method = $_REQUEST['method'];
 	if ($method == 'getProducts') {
 		echo json_encode(getProducts());
 	}
- 
- 
 ?>	
