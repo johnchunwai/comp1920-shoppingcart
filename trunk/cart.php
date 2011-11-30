@@ -7,6 +7,9 @@
 	require_once('common.php');
 	require_once('storefront.php');
 	
+	//
+	// The followings are done by storefront.php already.
+	//
 	//session_start();
 	//if (!validateSession()) {
 	//	return null;
@@ -26,6 +29,11 @@
 	function addToCart($prodId, $count) 
 	{
 		$succeeded = true;
+		$msg = null;
+		if ($count < 0) {
+			$succeeded = false;
+			$msg = 'Unable to add negative amount for a product.';
+		}
 		if (!isset($_SESSION['cart'][$prodId]))
 		{
 			// If the product is not added to cart, add it.
@@ -37,6 +45,7 @@
 			if ($_SESSION['cart'][$prodId] == MAX_COUNT_PER_ITEM_IN_CART)
 			{
 				$succeeded = false;
+				$msg = 'Reached the limited of ' . MAX_COUNT_PER_ITEM_IN_CART . ' items per product in cart.';
 			}
 			else
 			{
@@ -51,54 +60,38 @@
 		}
 		if ($succeeded)
 		{
-			$result = array('succeed' => true, 'msg' => "Product ID: $prodId Total quantity: " . $_SESSION['cart'][$prodId]);
+			$msg = "Product ID: $prodId Total quantity: " . $_SESSION['cart'][$prodId];
 		}
-		else
-		{
-			$result = array('succeed' => false, 'msg' => 'Reached the limited of ' . MAX_COUNT_PER_ITEM_IN_CART . ' items per product in cart.');
-		}
-		return $result;
+		return array('succeed' => $succeeded, 'msg' => $msg);
 	}
 	
 	/*
 	 * Update the quantity of a certain item in the cart.  
 	 * Return succeed/failure, new quantity pair. Eg. { true, "qty":34 } or { false, "qty":56 };
 	 */
-	function updateCartItemCount($prodId, $count)
-	{
-		
+	function updateCartItemCount($prodId, $count) {
 		$succeeded = true;
-		if (!isset($_SESSION['cart'][$prodId]))
-		{
+		$qty = 0;
+		$msg = null;
+		if (!isset($_SESSION['cart'][$prodId])) {
 			$succeeded = false;
-		}
-		else
-		{
-			if ($count== 0)
-			{
+			$msg = 'Product ID: ' . $prodId . ' is not in the cart.';
+		} else {
+			if ($count == 0) {
 				unset($_SESSION['cart'][$prodId]);
-			}
-			else
-			{
-				if ($count > MAX_COUNT_PER_ITEM_IN_CART || $count < 0)
-				{
-					$succeed = false;
+			} else {
+				if ($count > MAX_COUNT_PER_ITEM_IN_CART || $count < 0) {
+					$succeeded = false;
+					$msg = 'Failed to change quantity: quantity is either negative or greater than max limit of ' . MAX_COUNT_PER_ITEM_IN_CART;
 				}
-				$_SESSION['cart'][$prodId] = $count;
-			}				
-
+				else {
+					$_SESSION['cart'][$prodId] = $count;
+				}
+				$qty = $_SESSION['cart'][$prodId];
+			}
 		}
-		if ($succeeded== true)
-		{
-			$result = array('succeed' => true, 'qty' => $_SESSION['cart'][$prodId]);
-		}
-		else
-		{
-			$result = array('succeed' => false, 'qty' => 0);
-		
-		}
+		return array('succeed' => $succeeded, 'msg' => $msg, 'qty' => $qty);
 	}
-	
 	
 	/*
 	 * List the cart content.
@@ -107,7 +100,8 @@
 	function getCartContent() {
 		if (USE_DB) {
 			$cartContent = array();
-			$products = getProducts();
+			$productsResp = getProducts();
+			$products = $productsResp['products'];
 			foreach ($_SESSION['cart'] as $prodId => $qty) {
 				$foundProduct = null;
 				foreach ($products as $product) {
