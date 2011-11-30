@@ -61,13 +61,13 @@
 				function(resp) {
 					if (resp.succeed) {
 						$("#msg").html('Item quantity updated.');
-						if (resp.qty == 0) {
-							$("#cart_content_div tr#" + prodId).remove();
-						}
 					}
 					else {
-						$("#msg").html('Failed update item quanity.');
+						$("#msg").html(resp.msg);
 						$("#cart_content_div select#" + prodId + "_qty").val(resp.qty);
+					}
+					if (resp.qty == 0) {
+						$("#cart_content_div tr#" + prodId).remove();
 					}
 				});
 			});
