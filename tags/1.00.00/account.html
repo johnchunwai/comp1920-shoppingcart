@@ -1,0 +1,117 @@
+<html>
+<head>
+	<title>My Account</title>
+	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div style="padding: 0 0 0 300px;">
+	<div id="box2">
+		<h1>My Account</h1>
+		<hr align="left"/>
+		<ul class="toolbar_links">
+			<li><a href="./storefront.html"><img src="./css/images/btn-ConShop1.png"/></a></li>
+			<li><a href="./logout.html"><img src="./css/images/btn-logout-gr.png"/></a></li>
+		</ul>
+
+		<h2>Customer Information</h2>
+		<hr align="left"/>
+		<div id="user_info"></div>	
+
+		<h2>Customer Inventory</h2>
+		<hr align="left"/>
+		<div id="inventory_div"></div>
+		
+		<h2>Order History</h2>
+		<hr align="left"/>
+		Click the "Show History" for order details.
+		<div id="order_history_msg"></div><br/><br/>
+		<div id="order_history_div"><input id="show_history" type="image" src="./css/images/btn-ShowHis.png"  value="Show history"/></div>
+	</div>
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		
+		ajaxSetup();
+		checkLogin();
+		
+		// Retrieve the customer information.
+		$.getJSON('customerinfo.php?method=getUserInfo', function(resp) {
+			content = '<dl>';
+			content += '<dt>Name</dt><dd>' + resp.cus_name + '</dd>';
+			content += '<dt>Login</dt><dd>' + resp.loginname + '</dd>';
+			content += '<dt>Email</dt><dd>' + resp.email + '</dd>';
+			content += '</dl>';
+			$("#user_info").html(content);
+		});
+		
+		// Retrieve the customer inventory.
+		$.getJSON('customerinfo.php?method=getUserInventory', function(resp) {
+			if (resp.succeed) {
+				content = '<table>';
+				$.each(resp.inventory, function(index, item) {
+					content += '<tr>';
+					content += '<td><img src="' + item.prod_image + '"/></td>';
+					content += '<td>' + item.prod_name + '</td>';
+					content += '<td>' + item.qty + '</td>';
+					content += '</tr>';
+				});
+				content += '</table>';
+			}
+			else {
+				content = resp.msg;
+			}
+			$("#inventory_div").html(content);
+		});
+		
+		// Show order history when the button is clicked.
+		$("#show_history").click(function() {
+			$.getJSON('customerinfo.php?method=getUserOrderHistory', function(resp) {
+				if (resp.succeed) {
+					$("#order_history_msg").html('');
+					content = '<ul>';
+					$.each(resp.history, function(index, order) {
+						content += '<li id="' + order.ord_id + '">Order ID: ' + order.ord_id + ' Time: ' + order.ord_time
+							+ '<span id="' + order.ord_id + '_msg"></span>'
+							+ '<span id="' + order.ord_id + '_detail"></span>'
+							+ '</li>';
+					});
+					content += '</ul>';
+					$("#order_history_div").html(content);
+				}
+				else {
+					$("#order_history_msg").html(resp.msg);
+				}
+				
+				// Hook up showing order detail when order is clicked.
+				$("#order_history_div li").click(function() {
+					var ordId = this.id;
+					$.getJSON("./customerinfo.php?method=getOrderDetail",
+					{
+						ord_id: ordId
+					},
+					function(resp) {
+						if (resp.succeed) {
+							$("#order_history_div span #" + ordId + "_msg").html('');
+							content = '<ul>';
+							$.each(resp.detail, function(index, detail) {
+								content += '<li>Product: ' + detail.prod_name + ' Quantity: ' + detail.qty + '</li>';
+							});
+							content += '</ul>';
+							$("#order_history_div #" + ordId + "_detail").html(content);
+						}
+						else {
+							$("#order_history_div span #" + ordId + "_msg").html(resp.msg);
+						}
+					});
+				});
+			});
+		});
+		
+	</script>
+</div>
+</body>
+</html>
