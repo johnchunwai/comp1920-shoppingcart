@@ -91,7 +91,7 @@
 					var ordId = this.id;
 					$.getJSON("./customerinfo.php?method=getOrderDetail",
 					{
-						ord_id: ordId,
+						ord_id: ordId
 					},
 					function(resp) {
 						if (resp.succeed) {
