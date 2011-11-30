@@ -26,6 +26,7 @@
 	
 	// Sanity checks for logged in users.
 	function validateSession() {
-		return (isset($_SESSION['login']) && isset($_SESSION['loginname']) && isset($_SESSION['cus_name']));
+		return (isset($_SESSION['login']) && isset($_SESSION['loginname'])
+				&& isset($_SESSION['cus_name']) && isset($_SESSION['cus_id']));
 	}
 ?>
