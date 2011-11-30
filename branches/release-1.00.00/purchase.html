@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>Purchase</title>
+	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div style="padding: 0 0 0 300px;">
+	<div id="box">
+		<h1>Purchase</h1>
+		<hr align="left"/>
+		<ul class="toolbar_links">
+			<li><a href="./account.html"><img src="./css/images/btn-MyAcc1.png"/></a></li>
+			<li><a href="./logout.html"><img src="./css/images/btn-logout-gr.png"/></a></li>
+		</ul>
+		<p><span class="cus_name"></span>, <span id="purchase_result"></span>
+		<br/><br/>
+		<table border="0">
+			<td>
+				<tr>
+					<form action="storefront.html">
+						<input type="image" src="./css/images/btn-ConShop.png" value="Continue Shopping" />
+					</form>
+				</tr>
+			</td>
+		</table>
+	</div>
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		
+		ajaxSetup();
+		checkLogin();
+		
+		// Make the purchase as the page loads.
+		$.getJSON("./cart.php?method=makePurchase", function(resp) {
+			if (resp.succeed) {
+				$("#purchase_result").html('your purchase went through.' + resp.msg);
+			}
+			else {				
+				$("#purchase_result").html('failed to make purchase: ' + resp.msg);
+			}
+		});
+		
+	</script>
+</div>
+</body>
+</html>

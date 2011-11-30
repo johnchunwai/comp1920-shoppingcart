@@ -1,0 +1,27 @@
+.toolbar_links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.toolbar_links li {
+	float: left;
+	margin: 2px;
+}
+/*.toolbar_links a:link, .toolbar_links a:visited {
+	display: block;
+	width: 140px;
+	height:30px;
+	font-weight: bold;
+	font-size:15px;
+	color: #ffffff;
+	background-color: #98bf21;
+	text-align: center;
+	padding: 4px 1px 4px 1px;
+	text-decoration: none;
+	text-transform: uppercase;*/
+}
+.toolbar_links a:hover, .toolbar_links a:active {
+	background-color: #7a991a;
+}
+
