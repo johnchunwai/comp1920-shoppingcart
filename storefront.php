@@ -8,9 +8,7 @@
 	require_once ('common.php');
 	
 	session_start();
-	if (!validateSession()) {
-		return null;
-	}
+	validateSession() or die();	// Prevent the script from running further if this fails.
 	initDb();
 	
 	/*

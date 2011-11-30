@@ -11,9 +11,7 @@
 	// The followings are done by storefront.php already.
 	//
 	//session_start();
-	//if (!validateSession()) {
-	//	return null;
-	//}
+	//validateSession() or die();
 	//initDb();
 	
 	
