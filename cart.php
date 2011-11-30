@@ -66,20 +66,37 @@
 	 */
 	function updateCartItemCount($prodId, $count)
 	{
-		//if (USE_DB) {
-			//$succeed = true;
-			//$qty = 0;
-			////
-			//// IMPLEMENT THIS!!!
-			////
-			//// if !isset($_SESSION['cart'][$prodId]), set $succeed to false.
-			//// update $_SESSION['cart'][$prodId] = $count. If $count is 0, unset $_SESSION['cart'][$prodId].
-			//return array('succeed' => $succeed, 'qty' => $qty);
-		//}
-		//else {
-		return array("succeed" => false, "qty" => 34);
-		//}
 		
+		$succeeded = true;
+		if (!isset($_SESSION['cart'][$prodId]))
+		{
+			$succeeded = false;
+		}
+		else
+		{
+			if ($count== 0)
+			{
+				unset($_SESSION['cart'][$prodId]);
+			}
+			else
+			{
+				if ($count > MAX_COUNT_PER_ITEM_IN_CART || $count < 0)
+				{
+					$succeed = false;
+				}
+				$_SESSION['cart'][$prodId] = $count;
+			}				
+
+		}
+		if ($succeeded== true)
+		{
+			$result = array('succeed' => true, 'qty' => $_SESSION['cart'][$prodId]);
+		}
+		else
+		{
+			$result = array('succeed' => false, 'qty' => 0);
+		
+		}
 	}
 	
 	/*
