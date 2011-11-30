@@ -99,6 +99,7 @@
 		}
 	}
 	
+	
 	/*
 	 * List the cart content.
 	 * Return a list of product ID, names and quantities.
