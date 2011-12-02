@@ -33,6 +33,9 @@
 					window.location = "storefront.html";
 				}, 2000);
 			}
+			else {
+				$("#loginname").val(resp.loginname);
+			}
 		});
 		
 		// Perform user login. Redirect to storefront if succeed.

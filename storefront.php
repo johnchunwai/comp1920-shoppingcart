@@ -7,9 +7,7 @@
 
 	require_once ('common.php');
 	
-	session_start();
 	validateSession() or die();	// Prevent the script from running further if this fails.
-	initDb();
 	
 	/*
 	 * Function to list products available for purchase.
