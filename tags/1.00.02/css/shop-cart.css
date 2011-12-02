@@ -1,0 +1,64 @@
+/*Author: Bill Yu, Chun Wai Chan, Patrick Kowalski, Sahra Dilmaghanyan, Sami Jashromi
+ Date: Nov 24, 2011
+ File name: login-box.css */
+ 
+
+#box{
+	width:1050px;
+	height: 1280px;
+	padding: 100px 50px 0 100px;
+	color: #ebebeb;
+	font: 14px Arial, Helvetica, sans-serif;
+	background: url(images/box-backg.png) no-repeat left top;
+	
+}
+#box2{
+	width:1050px;
+	height: 3000px;
+	padding: 100px 50px 0 100px;
+	color: #ebebeb;
+	font: 14px Arial, Helvetica, sans-serif;
+	background: url(images/box-backg-long.jpg) no-repeat left top;
+	
+}
+#login-box img {
+	border:none;
+}
+
+#product_div{
+	color:red;
+}
+
+h1,h2{
+	margin:0;
+	padding:10px 5px 8px 10px;
+	
+}
+
+hr{
+	border: 0;
+	color: #ffffff;
+	background-color: #ffffff;
+	height: 1px;
+	width: 50%;
+	
+}
+td{
+	color:white;
+}
+
+.history { color:#eee; }
+.history ul { font-size:18px; }
+.history ul li.toplevel {
+	list-style-image: url("images/bullet.gif");
+}
+.history ul li ul.details {
+	list-style-image: url("images/nested.png");
+	padding:5px 0 5px 18px;
+	font-size:15px;
+}
+.history ul li ul li {
+	color:#bfe1f1;
+	height:15px;
+	margin-left:10px;
+}
