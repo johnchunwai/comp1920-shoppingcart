@@ -1,0 +1,60 @@
+<html>
+<head>
+	<title>Login</title>
+	<link href="./css/login-css.css" rel="stylesheet" type="text/css" />
+</head> 
+<body>
+<div style="padding: 100px 0 0 450px;">
+	<div id="login-box">
+		<h1>Login</h1>
+		<hr align="left"/>
+		<form>
+			<div id="error_msg"></div><br/>
+			<div id="login-box-name" style="margin-top:20px;">Name: </div><div id="login-box-field" style="margin-top:20px;"><input type="text" class="form-login" id="loginname" size="30" maxlength="2048"/></div>
+			<div id="login-box-name">Password: </div><div id="login-box-field"><input type="password" class="form-login" id="password" /></div>
+			<input type="image" src="./css/images/login-btn.png" id="login" width="103" height="42" style="margin-left:90px;margin-top:10px; " />
+		</form>
+	</div>
+ 
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		
+		ajaxSetup();
+		
+		// Check whether the user already logged in and redirect to shopping page if so.
+		$.getJSON("./login.php?method=getLoginInfo", function(resp) {
+			if (resp.login) {
+				$("body").html("Welcome back, " + resp.cus_name + ". Redirecting you to the storefront in 2 seconds.");
+				setTimeout(function() {
+					window.location = "storefront.html";
+				}, 2000);
+			}
+		});
+		
+		// Perform user login. Redirect to storefront if succeed.
+		$("#login").click(function(e) {
+			e.preventDefault(); // Cancel default submit behaviour.
+			
+			$.getJSON("./login.php?method=login",
+			{
+				loginname: $("#loginname").val(),
+				password: $("#password").val()
+			},
+			function(resp) {
+				if (resp.succeed) {
+					window.location = "storefront.html";
+				}
+				else {
+					$("#error_msg").html("Login failed: " + resp.msg);
+				}
+			});
+		});
+
+	</script>
+</div>
+</body>
+</html>

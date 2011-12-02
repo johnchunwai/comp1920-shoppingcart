@@ -1,0 +1,26 @@
+<html> 
+<head>
+	<title>Logout</title>
+	<link href="./css/login-css.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div style="padding: 0 0 0 300px;">
+	<div id="login-box">
+		Logging out. Redirect to login page in 2 seconds.
+	</div>
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		// Logout and redirect to login page.
+		$.getJSON("./login.php?method=logout", function() {
+			setTimeout(function() {
+				window.location = "login.html";
+			}, 2000);
+		});
+	</script>
+</div>
+</body>
+</html>

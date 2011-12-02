@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>Storefront</title>
+	<link rel="stylesheet" type="text/css" href="./css/common.css" />
+	<link href="./css/shop-cart.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div style="padding: 0 0 0 300px;">
+	<div id="box">
+        <h1>Store</h1>
+        <hr align="left"/>
+        <p>Welcome <span class="cus_name"></span> to our store. (<a href="./logout.html"><font color="#FBB917">If you're not <span class="cus_name"></span>, click here to logout</font></a>)</p>
+        <ul class="toolbar_links">
+            <li><a href="./account.html"><img src="./css/images/btn-MyAcc1.png"/></a></li>
+ 			<li><a href="./logout.html"><img src="./css/images/btn-logout-gr.png"/></a></li>
+       </ul>
+		<br/><br/>
+        <h2>Products</h2>
+		<hr align="left"/>
+        <div id="product_div"></div>
+        <div id="msg"></div><br/><br/>
+        <form action="./checkout.html">
+            <input type="image" src="./css/images/btn-Proceed.png" value="Proceed to Checkout"/>
+        </form>
+	</div>
+    
+	<!-- 
+		Javascript section
+	-->
+	<script type="text/javascript" src="./scripts/jquery-1.7.min.js"></script>
+	<script type="text/javascript" src="./scripts/common.js"></script>
+	<script type="text/javascript">
+		
+		ajaxSetup();
+		checkLogin();
+		
+		// Present the product catalog for purchase.
+		$.getJSON('./storefront.php?method=getProducts', function(resp) {
+			// Present the catalog as a table.
+			if (resp.succeed) {
+				catalog = '<table width="500">';
+				$.each(resp.products, function(index, prod) {
+					catalog += '<tr>';
+					catalog += '<td><img src="' + prod.prod_image + '"/></td>';
+					catalog += '<td>' + prod.prod_name + '</td>';
+					catalog += '<td>' + prod.prod_desc + '</td>';
+					catalog += '<td>' + createSelectForQuantity(prod.prod_id + '_qty', 1, 10) + '</td>';
+					catalog += '<td><input type="image" src="./css/images/btn-Add.png" class="button" id="' + prod.prod_id + '" value="Add to Cart"/></td>';
+					catalog += '</tr>';
+				});
+				catalog += '</table>';
+			}
+			else {
+				catalog = 'Failed to get product listing: ' + resp.msg;
+			}
+			$("#product_div").html(catalog);
+
+			// Hook up add items to cart action when user clicks the buttons.
+			$("#product_div input.button").click(function() {
+				$.getJSON("./cart.php?method=addToCart",
+				{
+					prod_id: this.id,
+					count: $("#product_div select#" + this.id + "_qty").val()
+				},
+				function(resp) {
+					if (resp.succeed) {
+						$("#msg").html('Item added to cart: ' + resp.msg);
+					}
+					else {
+						$("#msg").html('Failed to add item to cart: ' + resp.msg);
+					}
+				});
+			});
+		});
+
+	</script>
+</div>
+</body>
+</html>
