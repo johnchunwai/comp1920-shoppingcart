@@ -16,12 +16,13 @@
 	
 	define('USE_DB', true);	// flag to turn on/off using DB (set to false when DB is not ready yet).
 	
-	// Initialize mysql.
-	function initDb() {
-		if (USE_DB) {
-			mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die(mysql_error());
-			mysql_select_db(DB_NAME) or die(mysql_error());
-		}
+	// Common initialize routines.
+	session_start();
+	// This avoids $_COOKIE to mess with $_REQUEST.
+	$_REQUEST = array_merge($_GET, $_POST);
+	if (USE_DB) {
+		mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die(mysql_error());
+		mysql_select_db(DB_NAME) or die(mysql_error());
 	}
 	
 	// Sanity checks for logged in users.

@@ -7,12 +7,7 @@
 	require_once('common.php');
 	require_once('storefront.php');
 	
-	//
-	// The followings are done by storefront.php already.
-	//
-	//session_start();
-	//validateSession() or die();
-	//initDb();
+	validateSession() or die();
 	
 	
 	// Initialize the shopping cart.

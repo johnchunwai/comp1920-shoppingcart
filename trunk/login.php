@@ -5,17 +5,14 @@
 	 * File description: Handles login and logout of users.
 	 */
 	require_once('common.php');
-	
-	session_start();
-	
-	initDb();
-	
+		
 	/*
 	 * Authenticates user. Returns succeed/failure, error_msg. eg. { "succeed":true } or { "succeed":false, "msg":"error message" }.
 	 */
 	function login($loginname, $password) {
 		$succeed = false;
 		$msg = "";
+		setcookie('loginname', $loginname, time() + 3600);
 		if (USE_DB) {
 			$loginname = mysql_real_escape_string($loginname);
 			$password = mysql_real_escape_string($password);
@@ -59,7 +56,12 @@
 		}
 		else {
 			$result['login'] = false;
-			$result['loginname'] = null;
+			if (empty($_REQUEST['loginname']) && isset($_COOKIE['loginname'])) {
+				$result['loginname'] = $_COOKIE['loginname'];
+			}
+			else {
+				$result['loginname'] = null;
+			}
 			$result['cus_name'] = null;
 		}
 		return $result;
