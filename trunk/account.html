@@ -26,7 +26,7 @@
 		<hr align="left"/>
 		Click the "Show History" for order details.
 		<div id="order_history_msg"></div><br/><br/>
-		<div id="order_history_div"><input id="show_history" type="image" src="./css/images/btn-ShowHis.png"  value="Show history"/></div>
+		<div id="order_history_div" class="history"><input id="show_history" type="image" src="./css/images/btn-ShowHis.png"  value="Show history"/></div>
 	</div>
 	<!-- 
 		Javascript section
@@ -74,7 +74,7 @@
 					$("#order_history_msg").html('');
 					content = '<ul>';
 					$.each(resp.history, function(index, order) {
-						content += '<li id="' + order.ord_id + '">Order ID: ' + order.ord_id + ' Time: ' + order.ord_time
+						content += '<li id="' + order.ord_id + '" class="toplevel">Order ID: ' + order.ord_id + ' Time: ' + order.ord_time
 							+ '<span id="' + order.ord_id + '_msg"></span>'
 							+ '<span id="' + order.ord_id + '_detail"></span>'
 							+ '</li>';
@@ -96,7 +96,7 @@
 					function(resp) {
 						if (resp.succeed) {
 							$("#order_history_div span #" + ordId + "_msg").html('');
-							content = '<ul>';
+							content = '<ul class="details">';
 							$.each(resp.detail, function(index, detail) {
 								content += '<li>Product: ' + detail.prod_name + ' Quantity: ' + detail.qty + '</li>';
 							});

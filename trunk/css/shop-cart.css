@@ -46,3 +46,19 @@ hr{
 td{
 	color:white;
 }
+
+.history { color:#eee; }
+.history ul { font-size:18px; }
+.history ul li.toplevel {
+	list-style-image: url("images/bullet.gif");
+}
+.history ul li ul.details {
+	list-style-image: url("images/nested.png");
+	padding:5px 0 5px 18px;
+	font-size:15px;
+}
+.history ul li ul li {
+	color:#bfe1f1;
+	height:15px;
+	margin-left:10px;
+}
