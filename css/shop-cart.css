@@ -5,16 +5,16 @@
 
 #box{
 	width:1050px;
-	height: 1280px;
+	height:1280px;
 	padding: 100px 50px 0 100px;
 	color: #ebebeb;
 	font: 14px Arial, Helvetica, sans-serif;
-	background: url(images/box-backg.png) no-repeat left top;
+	background: url(images/box-backg.jpg) no-repeat left top;
 	
 }
 #box2{
-	width:1250px;
-	height: 2000px;
+	width:1050px;
+	height: 2300px;
 	padding: 100px 50px 0 100px;
 	color: #ebebeb;
 	font: 14px Arial, Helvetica, sans-serif;
