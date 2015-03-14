@@ -1,0 +1,1 @@
+A simple shopping cart webapp using PHP, MySQL, JQuery with JSON bindings.
